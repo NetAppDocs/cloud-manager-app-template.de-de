@@ -1,0 +1,96 @@
+---
+sidebar: sidebar 
+permalink: task-check-template-compliance.html 
+keywords: templates, resource templates, application templates, volume templates, drift, compliant 
+summary: BlueXP kann die Parameterwerte überwachen, die bei der Erstellung einer Ressource mit einer Vorlage unter Verwendung der Funktion „Drift“ verwendet werden. Drift identifiziert geänderte Ressourcen, die nicht mehr den Vorlageneinstellungen entsprechen. 
+---
+= Überprüfen Sie die Ressourcen für die Einhaltung der Vorlagen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BlueXP kann die Parameterwerte überwachen, die bei der Erstellung einer Ressource mit einer Vorlage unter Verwendung der Funktion „Drift“ verwendet werden. Drift identifiziert geänderte Ressourcen, die nicht mehr den Vorlageneinstellungen entsprechen.
+
+Zu diesem Zeitpunkt identifiziert Drift die geänderten Parameter in einer Ressource - Sie müssen manuell Anpassungen an der Ressource vornehmen, um sie wieder in Übereinstimmung mit der Vorlage zu bringen. In Zukunft können wir Ihnen Benachrichtigungen senden, wenn eine Ressource nicht mehr konform ist oder Sie die Änderung eines Benutzers sogar rückgängig machen, sodass alle über eine Vorlage erstellten Ressourcen automatisch in die Compliance zurückgeführt werden.
+
+
+
+== Wie funktioniert Drift
+
+Drift identifiziert nicht-konforme Parameter wie folgt:
+
+. Beim Erstellen einer Vorlage schalten Sie Drift-on für bestimmte Parameter ein, die Benutzer nicht ändern möchten. Beispielsweise können Sie festlegen, dass Snapshot-Kopien unter Verwendung der „Standard“-Richtlinie für alle Volumes erstellt werden, die aus einer Vorlage erstellt wurden.
++
+image:screenshot_template_drift_on_param.png["Ein Screenshot, in dem gezeigt wird, wie Drift auf einem einzelnen Parameter in einer Vorlage aktiviert wird."]
+
+. Sie schalten Drift für die Vorlage ein und speichern dann die Vorlage.
++
+image:screenshot_template_drift_on_template.png["Ein Screenshot, in dem gezeigt wird, wie Drift für die Vorlage aktiviert wird."]
+
+. Storage-Administratoren führen die Vorlage zur Erstellung von Volumes aus.
+. Später bearbeitet ein Storage-Administrator ein Volume und deaktiviert Snapshot Kopien.
+. Sie führen eine Drift-Überprüfung für alle Vorlagen aus, und der AppTemplates-Service vergleicht die Vorlageneinstellung für Snapshot Kopien mit der aktuellen Einstellung im Volume. Alle nicht konformen Werte werden markiert, sodass Sie die falsche Einstellung beheben können.
+
+
+
+
+== Das Drift Dashboard
+
+Das Drift Dashboard zeigt die Gesamtzahl der Ressourcen (z. B. Volumes) an, die mit Ihren Vorlagen erstellt wurden, die Zahl, die noch mit der Vorlage konform ist, die Nummer, die nicht konform ist (drifted) und die Anzahl, die mit Drift deaktiviert erstellt wurde.
+
+image:screenshot_template_drift_dashboard.png["Ein Screenshot des Drift-Dashboards für den AppTemplates-Service."]
+
+* Mit den Steuerelementen oben in jeder Spalte können Sie die Ergebnisse in numerischer oder alphabetischer Reihenfolge sortieren.
+* Der image:screenshot_plus_icon.gif[""] Ermöglicht die Filterung der Ergebnisse nach Vorlagenname, Drift Policy & Status und Aktionstyp. Beispiel:
++
+image:screenshot_template_filter_drift_status.png["Ein Screenshot, der zeigt, wie Sie die Liste der Ressourcen mit dem Filter-Widget verfeinern."]
+
+* Über die Suchleiste können Sie nach einem bestimmten Volume-Namen oder Vorlagennamen suchen.
+* Um mehr Details über die tatsächliche Ressource (oder das Volumen) zu erfahren, wie z. B. die Arbeitsumgebung und die Storage VM, klicken Sie auf die image:screenshot_sync_status_icon.gif[""].
++
+image:screenshot_template_drift_vol_details.png["Ein Screenshot mit den Details zu einem Volumen im Drift-Dashboard."]
+
+
+
+
+
+== Füllen Sie das Drift Dashboard aus
+
+Sie müssen die Drift-Prüfung auf einer Vorlage durchführen, bevor sie die Werte im Drift-Dashboard füllt.
+
+Sie können Drift-Checks für alle Vorlagen im Vorlagen-Dashboard ausführen:
+
+image:screenshot_template_drift_for_all.png["Ein Screenshot, in dem gezeigt wird, wie die Drift-Suche nach allen Vorlagen durchgeführt wird."]
+
+Sie können Drift-Checks auf einer einzelnen Vorlage über das Vorlagen-Dashboard ausführen:
+
+image:screenshot_template_drift_for_one.png["Ein Screenshot, in dem gezeigt wird, wie die Drift-Suche nach einer einzelnen Vorlage ausgeführt wird."]
+
+
+
+== Erstellen Sie einen Drift-Bericht für nicht konforme Ressourcen
+
+Sie können einen Drift-Bericht für eine einzelne Ressource anzeigen oder einen Bericht ausführen, um einen Bericht für alle Ressourcen herunterzuladen. Mit diesem Bericht können Sie den Systemadministratoren Aktionen zuweisen, um Änderungen vorzunehmen, durch die die Ressourcen wieder in Übereinstimmung mit der Vorlage gebracht werden.
+
+Sie können im Drift Dashboard auf das Drift-Symbol für eine Ressource klicken, um eine Liste der Parameter in jeder Ressource anzuzeigen, die nicht kompatibel ist.
+
+image:screenshot_template_drift_report_one_resource.png["Ein Screenshot eines Drift-Berichts für eine einzelne Ressource."]
+
+Klicken Sie auf, um einen Drift-Bericht für Ressourcen anzuzeigen, die aus Ihren Vorlagen erstellt wurden image:button_download.png[""] So laden Sie eine .CSV-Datei herunter: Der Drift-Bericht gibt an, was aktuell auf der Seite gefiltert ist. Er zeigt nicht alle Ressourcen an, es sei denn, Sie haben keine Filter auf der Seite angewendet.
+
+
+
+=== Integritätsdetails der Replikation im Drift-Bericht
+
+Wenn link:task-define-templates.html#add-replication-functionality-to-a-volume["Aktivieren der Replikation auf einem Volume mithilfe von Vorlagen"], Sie können wählen, um ausführlichere Replikationsinformationen in den Drift-Bericht durch die Aktivierung Drift im Feld "Replikation Health Monitoring aktivieren". Wenn diese Option aktiviert ist, zeigt der Drift-Bericht, ob der Zustand der Replikationsbeziehung gesund oder ungesund (driftet) zusammen mit der SnapMirror-Verzögerungszeit, dem Status und der letzten Übertragungszeit ist.
+
+Dieser Screenshot zeigt die Details zur Replizierung für eine SnapMirror Beziehung, die im Drift-Bericht ungesund ist.
+
+image:screenshot_template_drift_snapmirror_details.png["Ein Screenshot des Drift-Berichts mit den Replizierungsdetails für eine ungesunde SnapMirror Beziehung"]
+
+*Hinweis:* Da die Replikation zunächst auf das Volumen angewendet wird, wird die Gesundheit als "falsch" zurückgegeben, was bedeutet, dass sie ungesund ist. Nach einigen Minuten wird der reale Replikationsstatus angezeigt.

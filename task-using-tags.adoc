@@ -1,0 +1,131 @@
+---
+sidebar: sidebar 
+permalink: task-using-tags.html 
+keywords: tags, resource tags, volume tags, add tags, delete tags, view tags 
+summary: Über den BlueXP Tagging-Dienst können Sie die Tags anzeigen, hinzufügen, ändern und löschen, die Ihren vorhandenen Ressourcen zugewiesen sind. Auf diese Weise können Sie die Verwaltung Ihrer Ressourcen organisieren und vereinfachen. 
+---
+= Verwalten von Tags für Ihre Ressourcen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Über den BlueXP Tagging-Dienst können Sie die Tags anzeigen, hinzufügen, ändern und löschen, die Ihren vorhandenen Ressourcen zugewiesen sind. Auf diese Weise können Sie die Verwaltung Ihrer Ressourcen organisieren und vereinfachen.
+
+
+
+== Suchen Sie nach Ressourcen mit bestimmten Tags
+
+Wenn Sie alle Ressourcen mit einem bestimmten Tag oder einen bestimmten Tag- und Tag-Schlüsselwert sehen möchten, können Sie nach diesen Tags suchen. Sie können innerhalb aller Ressourcen oder nur innerhalb bestimmter Ressourcenkategorien suchen.
+
+.Schritte
+. Wählen Sie *Health > Remediation* und klicken Sie auf die Registerkarte *Tags*.
+. Wählen Sie bei Bedarf die Zugangsdaten für einen bestimmten Cloud-Provider im Feld *Select Credentials* aus.
+. Wählen Sie im Feld „_Resource Type_“ die Ressource aus, beispielsweise *ONTAP:CVO:VOLUME*, um alle Cloud Volumes ONTAP Volumes zu durchsuchen.
+. Wählen Sie im Feld „_Tag Key_“ das Tag aus, zum Beispiel *Env*, um die Suche auf Volumes mit dem Tag „Env“ einzuschränken.
+. Wählen Sie im Feld _Tag Wert_ den Schlüsselwert aus, zum Beispiel *Produktion*, um die Suche auf Volumen mit dem Tag-Namen "Env" und dem Tag-Wert "Produktion" einzuschränken.
++
+image:screenshot_tags_search_single_1.png["Ein Screenshot zur Auswahl eines einzelnen Satzes von Suchkriterien, um eine Ressource mit einer bestimmten Tag-Taste und einem Tag-Wert zurückzugeben."]
+
+. Klicken Sie auf das image:screenshot_plus_icon.gif[""] So fügen Sie diese Suchkriterien zum Suchbereich hinzu.
++
+image:screenshot_tags_search_single_2.png["Ein Screenshot der Tag-Suchkriterien, die der Suchzeile hinzugefügt wurden."]
+
+. Wenn Sie mit Ihrer Suche fertig sind, klicken Sie auf *Suche* und die Suchergebnisse werden im Abschnitt Ressourcen angezeigt.
++
+image:screenshot_tags_search_single_result.png["Ein Screenshot der Ergebnisse für Ressourcen, die den Kriterien für die Tag-Suche entsprechen."]
+
++
+Wenn Sie weitere Suchkriterien hinzufügen möchten, folgen Sie erneut den Schritten 3 bis 6 und klicken Sie dann auf *Suchen*.
+
+
+
+
+
+=== Suchregeln
+
+Beim Definieren Ihrer Suche gelten die folgenden Regeln:
+
+* Nachdem Sie einen Ressourcentyp ausgewählt haben, können Sie das Feld Tag-Schlüssel und die Felder Tag-Wert leer lassen, wenn Sie alle Ressourcen mit einem beliebigen Schlüssel und einem beliebigen Schlüsselwert auflisten möchten.
+* Sie können eine einzelne Suche auswählen oder mehrere Suchen definieren, um die Ergebnisse im Abschnitt „Ressource“ zu verfeinern.
+* Wenn Sie mehrere Sätze von Suchkriterien definieren:
++
+** Wenn die Kriterien für zwei Suchvorgänge für unterschiedliche Ressourcentypen gelten, wird dies als „ODER“-Vorgang behandelt und das Ergebnis zeigt die Ressourcen aus beiden Suchvorgängen an. Die folgende Suche gibt beispielsweise alle Azure NetApp Files Volumes mit dem Tag-Wert „Environment:Demo“ und alle Cloud Volumes ONTAP-Volumes mit dem Tag-Wert „Environment:Demo“ zurück.
++
+image:screenshot_tags_search_or.png[""]
+
+** Wenn die Kriterien für zwei Suchvorgänge für den gleichen Ressourcentyp gelten, wird dies als "UND"-Vorgang behandelt und das Ergebnis zeigt nur die Ressourcen an, die mit *beiden*-Suchen übereinstimmen. Die folgende Suche gibt beispielsweise Azure NetApp Files-Volumes zurück, die sowohl den Tag-Wert „Environment:Demo“ als auch den Tag-Wert „Gruppe:Finanzen“ haben.
++
+image:screenshot_tags_search_and.png[""]
+
+
+
+* Wenn Sie mehrere Suchkriterien definiert haben und dann entscheiden, dass Sie eines entfernen möchten, klicken Sie einfach auf das image:button_delete_tag_search.png[""] So entfernen Sie sie aus dem Suchbereich.
+
+
+
+
+== Fügen Sie Tags zu vorhandenen Ressourcen hinzu
+
+Sie können Tags auf eine einzelne Ressource oder mehrere Ressourcen anwenden. Die Ressourcen können vorhandene Tags haben oder über keine aktuellen Tags verfügen.
+
+link:concept-tagging.html#resources-that-you-can-tag["Sehen Sie sich die Liste der Ressourcen an, die Sie derzeit kennzeichnen können."]
+
+.Schritte
+. Erstellen Sie auf der Registerkarte *Tags* Ihre Suchkriterien und klicken Sie auf *Suchen*.
+. Wählen Sie die Ressource oder Ressourcen aus, die Sie markieren möchten.
++
+** Wenn Sie alle Ressourcen auf der Seite auswählen möchten, aktivieren Sie das Kontrollkästchen in der Titelzeile (image:button_select_all_resources.png[""]).
+** Wenn Sie mehrere Ressourcen auswählen möchten, aktivieren Sie das Kontrollkästchen für jede Ressource (image:button_backup_1_volume.png[""]).
+** Um eine einzelne Ressource auszuwählen, klicken Sie auf das image:button_select_1_resource.png["Plus-Taste"] Symbol für die Ressource.
++
+image:screenshot_tags_how_2_select_resources.png["Ein Screenshot, in dem die Auswahl einer einzelnen Ressource, mehrerer Ressourcen oder aller Ressourcen dargestellt wird."]
+
+
+
+. Klicken Sie auf *Tags verwalten* und das Dialogfeld „_Resource Tags_“ wird angezeigt. In diesem Dialogfeld werden alle vorhandenen Tags angezeigt.
++
+image:screenshot_tags_resource_tags_dialog.png["Ein Screenshot, in dem das Dialogfeld „Ressourcen-Tag“ angezeigt wird, in dem Sie die derzeit zugewiesenen Tags anzeigen und neue Tags hinzufügen können."]
+
+. Klicken Sie auf *Neues Tag hinzufügen*, und im Dialogfeld wird ein leerer Tag-Schlüssel und eine Zeile für Tag-Wert angezeigt.
+. Geben Sie die Tag-Taste und den Tag-Wert ein. Fügen Sie zu diesem Zeitpunkt weitere Tags hinzu, wenn Sie weitere Tags für diese Ressource wünschen, und klicken Sie dann auf *Überprüfen und Anwenden*.
+. Wenn Ihre Änderungen auf der Seite _reviewing_ korrekt aussehen, klicken Sie auf *Speichern* und das neue Tag wird der Ressource oder allen ausgewählten Ressourcen hinzugefügt.
+
+
+
+
+== Ändern Sie die Tag-Werte für eine Ressource
+
+Sie können die Tags ändern, die Ressourcen zugewiesen werden, und Sie können den Tag-Wert ändern, der auf ein vorhandenes Tag angewendet wird.
+
+.Schritte
+. Erstellen Sie auf der Registerkarte *Tags* Ihre Suchkriterien und klicken Sie auf *Suchen*.
+. Wählen Sie die Ressource oder die Ressourcen aus, für die Sie Tags ändern möchten.
+. Klicken Sie auf *Tags verwalten* und das Dialogfeld „_Resource Tags_“ wird angezeigt.
++
+image:screenshot_tags_modify_tag.png["Ein Screenshot zeigt, wie ein Tag von einer Ressource oder mehreren Ressourcen geändert wird."]
+
+. Geben Sie einen neuen Wert für den Tag-Wert ein und klicken Sie auf *Überprüfen und Anwenden*.
+. Wenn Ihre Änderung auf der Seite _reviewing_ korrekt aussieht, klicken Sie auf *Speichern* und der Tag-Wert wird für die Ressource oder für alle ausgewählten Ressourcen geändert.
+
+
+
+
+== Tags aus Ressourcen löschen
+
+Sie können ein Tag-Schlüssel-/Wertpaar aus einer einzelnen Ressource oder aus mehreren Ressourcen löschen.
+
+.Schritte
+. Erstellen Sie auf der Registerkarte *Tags* Ihre Suchkriterien und klicken Sie auf *Suchen*.
+. Wählen Sie die Ressource oder Ressourcen aus, aus der Sie Tags entfernen möchten.
+. Klicken Sie auf *Tags verwalten* und das Dialogfeld „_Resource Tags_“ wird angezeigt.
++
+image:screenshot_tags_delete_tag.png["Ein Screenshot, in dem das Löschen eines Tags aus einer Ressource oder mehreren Ressourcen angezeigt wird."]
+
+. Klicken Sie auf das image:button_delete_tag_pair.png[""] Für das Tag-Schlüssel-/Wertpaar, das Sie löschen möchten und die Zeile entfernt wird, klicken Sie dann auf *Überprüfen und Anwenden*.
+. Wenn Ihre Änderung auf der Seite _reviewing_ korrekt aussieht, klicken Sie auf *Speichern* und das Tag-Schlüssel-/Wertpaar wird aus der Ressource oder aus allen ausgewählten Ressourcen entfernt.
+

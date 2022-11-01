@@ -1,0 +1,180 @@
+---
+sidebar: sidebar 
+permalink: task-run-templates.html 
+keywords: templates, resource templates, services templates, volume templates, working environment templates 
+summary: 'Wählen Sie eine der Applikationsvorlagen aus, die Ihr Unternehmen zur Erstellung von Arbeitsumgebungen oder Volumes entwickelt hat, die für spezifische Workloads und Applikationen optimiert sind. Vorlagen ermöglichen Ihnen auch die Aktivierung von Cloud Backup, Cloud Data Sense und Replizierung (SnapMirror) auf den Volumes oder auf vorhandenen Volumes.' 
+---
+= Erstellen oder Ändern von Ressourcen mithilfe von Vorlagen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Wählen Sie eine der Applikationsvorlagen aus, die Ihr Unternehmen zur Erstellung von Arbeitsumgebungen oder Volumes entwickelt hat, die für spezifische Workloads und Applikationen optimiert sind. Vorlagen ermöglichen Ihnen auch die Aktivierung https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^], https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^], und https://docs.netapp.com/us-en/cloud-manager-replication/concept-replication.html["Replizierung (SnapMirror)"^] Auf den erstellten Volumes oder auf vorhandenen Volumes.
+
+Vorlagen ermöglichen die Erstellung von Volumes für Cloud Volumes ONTAP, Azure NetApp Files und lokale ONTAP Systeme.
+
+
+
+== Schnellstart
+
+Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.
+
+.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"[] alt=„One“></span> erforderliche Voraussetzungen prüfen
+* Bevor Sie ein Volume für ein Cloud Volumes ONTAP-, On-Premises-ONTAP- oder Azure NetApp Files-System mit einer Vorlage erstellen können, stellen Sie sicher, dass Sie Zugriff auf eine geeignete Arbeitsumgebung haben, in der das Volume implementiert wird.
+
+
+* Wenn die Vorlage einen Cloud-Service auf dem Volume aktiviert, z. B. https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^] Oder https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^], Stellen Sie sicher, dass der Service in Ihrer Umgebung aktiv ist und lizenziert ist.
+
+
+[role="quick-margin-para"]
+Wählen Sie *Health > Remediation* und klicken Sie auf die Registerkarte *Templates*.
+
+[role="quick-margin-para"]
+Wählen Sie die Vorlage aus, klicken Sie auf *Vorlage ausführen* und geben Sie Werte in die bearbeitbaren Felder ein, um die Ressource zu erstellen.
+
+
+
+== Anforderungen
+
+Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen.
+
+* Falls Sie noch keinen Connector haben, https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["Weitere Informationen zum Erstellen von Anschlüssen finden Sie unter"^] Für AWS, Azure und GCP.
+* Stellen Sie beim Erstellen eines Cloud Volumes ONTAP Volumes sicher, dass eine Cloud Volumes ONTAP-Arbeitsumgebung verfügbar ist.
+* Stellen Sie beim Erstellen eines lokalen ONTAP Volumes sicher, dass über eine lokale ONTAP-Arbeitsumgebung verfügbar ist.
+* Stellen Sie beim Erstellen eines Azure NetApp Files Volumes sicher, dass eine Azure NetApp Files-Arbeitsumgebung verfügbar ist.
+* Wenn die Vorlage einen Cloud-Service auf dem Volume aktiviert, z. B.  https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^], https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^], Oder https://docs.netapp.com/us-en/cloud-manager-replication/concept-replication.html["Replizierung (SnapMirror)"^], Stellen Sie sicher, dass der Service in Ihrer Umgebung aktiv ist und lizenziert ist.
+
+
+
+
+== Wählen Sie eine Volume-Vorlage aus, und führen Sie sie aus
+
+Es gibt verschiedene Möglichkeiten, eine Vorlage zum Erstellen neuer Volumes auszuwählen und zu starten:
+
+* Führen Sie die Volume-Vorlage aus der Arbeitsumgebung aus
+* Führen Sie die Volume-Vorlage über das Vorlagen-Dashboard aus
+
+
+Unabhängig von der gewählten Methode stehen in den folgenden Abschnitten die Details zu den erforderlichen Volume-Parametern zur Verfügung:
+
+* https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-create-volumes.html#create-a-volume-from-a-template["Wie stellt man Cloud Volumes ONTAP Volumes bereit"^]
+* https://docs.netapp.com/us-en/cloud-manager-azure-netapp-files/task-create-volumes.html#create-volumes-from-templates["Wie stellt man Azure NetApp Files Volumes bereit"^]
+* https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-provisioning-ontap.html#creating-volumes-from-templates["Vorgehensweise bei der Bereitstellung von ONTAP Volumes vor Ort"^]
+
+
+
+
+=== Führen Sie eine Volume-Vorlage aus der Arbeitsumgebung aus
+
+Sie können ein Volume zu einer vorhandenen Arbeitsumgebung von der Seite _Working Environment_ und von der Seite _Volume Details_ hinzufügen.
+
+.Schritte
+. Klicken Sie auf der Seite _Working Environment_ oder auf der Seite _Volume Details_ auf *Volume aus Vorlage hinzufügen*.
++
+image:screenshot_template_add_vol_from.png["Zwei Screenshots zeigen, wie Benutzer neue Volumes aus einer Vorlage erstellen können."]
+
++
+Das _Templates Dashboard_ wird angezeigt und listet nur die Vorlagen auf, die für die ausgewählte Arbeitsumgebung gelten - beispielsweise werden nur Cloud Volumes ONTAP-Vorlagen angezeigt.
+
+. Klicken Sie Auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Und *Vorlage ausführen*.
++
+image:screenshot_template_run_from_dashboard.png["Ein Screenshot, der zeigt, wie eine Vorlage über das Vorlagen-Dashboard ausgeführt wird."]
+
++
+Die Seite „_Volume aus Vorlage_ hinzufügen“ wird angezeigt.
+
+. Geben Sie Werte in die bearbeitbaren Felder ein, um das Volume zu erstellen, und klicken Sie auf *Vorlage ausführen*.
++
+image:screenshot_run_template_from_canvas.png["Ein Screenshot mit den Parametern, die Sie definieren müssen, um das Volume aus einer Vorlage zu erstellen."]
+
+
+
+
+
+=== Führen Sie eine Volume-Vorlage über das Vorlagen-Dashboard aus
+
+Sie können ein Volume zu einer vorhandenen Arbeitsumgebung über das _Templates Dashboard_ hinzufügen.
+
+.Schritte
+. Wählen Sie *Health > Remediation* und klicken Sie auf die Registerkarte *Templates*.
++
+Das _Templates Dashboard_ wird angezeigt.
+
+. Klicken Sie für die Vorlage, die Sie verwenden möchten, auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Und *Vorlage ausführen*.
++
+image:screenshot_template_run_from_dashboard2.png["Ein Screenshot, der zeigt, wie eine Vorlage über das Vorlagen-Dashboard ausgeführt wird."]
+
++
+Die Seite _Run Template_ wird angezeigt.
+
+. Geben Sie Werte in bearbeitbare Felder ein, um das Volume zu erstellen, und klicken Sie auf *Vorlage ausführen*.
++
+image:screenshot_run_template_from_dashboard.png["Ein Screenshot mit den Parametern, die Sie definieren müssen, um das Volume aus einer Vorlage zu erstellen."]
+
++
+Beachten Sie, dass Sie bei Ausführung der Vorlage aus dem Dashboard die Arbeitsumgebung und andere Variablen (z. B. Storage-VM und/oder Aggregat) auswählen müssen. Wenn Sie die Vorlage aus der Arbeitsumgebung ausführen, wird die Arbeitsumgebung automatisch ausgefüllt.
+
+
+
+
+
+== Wählen Sie eine Arbeitsumgebungs-Vorlage aus, und führen Sie sie aus
+
+Sie können eine neue Arbeitsumgebung über das _Templates Dashboard_ erstellen, wenn Ihr Unternehmen eine Vorlage für diese Funktion erstellt hat.
+
+Wenn Sie Fragen zu den Details haben, die zum Erstellen der Arbeitsumgebung erforderlich sind, lesen Sie https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-otc-aws.html["Starten von Cloud Volumes ONTAP in AWS"^].
+
+.Schritte
+. Wählen Sie *Health > Remediation* und klicken Sie auf die Registerkarte *Templates*.
++
+Das _Templates Dashboard_ wird angezeigt.
+
+. Klicken Sie für die Vorlage, die Sie verwenden möchten, auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Und *Vorlage ausführen*.
++
+image:screenshot_template_run_from_dashboard3.png["Ein Screenshot, der zeigt, wie eine Vorlage über das Vorlagen-Dashboard ausgeführt wird."]
+
++
+Die Seite _Run Template_ wird angezeigt.
+
+. Geben Sie Werte in bearbeitbare Felder ein, um die Arbeitsumgebung und das erste Volume zu erstellen, und klicken Sie auf *Vorlage ausführen*.
++
+image:screenshot_template_run_from_dashboard_we.png["Ein Screenshot mit den Parametern, die Sie definieren müssen, um die Arbeitsumgebung aus einer Vorlage zu erstellen."]
+
+
+
+
+
+== Wählen Sie eine Vorlage aus, die vorhandene Ressourcen findet, und führen Sie sie aus
+
+Sie können eine Vorlage ausführen, die bestimmte Ressourcen sucht (z. B. Volumes), und dann einen Cloud-Service auf diesen Ressourcen aktiviert (z. B. Cloud Backup), wenn Ihr Unternehmen mithilfe dieser Funktion eine Vorlage erstellt hat. Wenn Sie die Vorlage ausführen, können Sie einige kleinere Änderungen vornehmen, sodass der Cloud-Service nur auf die entsprechenden Ressourcen angewendet wird.
+
+.Schritte
+. Wählen Sie *Health > Remediation* und klicken Sie auf die Registerkarte *Templates*.
++
+Das _Templates Dashboard_ wird angezeigt.
+
+. Klicken Sie für die Vorlage, die Sie verwenden möchten, auf image:screenshot_horizontal_more_button.gif["Weitere Symbole"] Und *Vorlage ausführen*.
++
+image:screenshot_template_run_from_dashboard4.png["Ein Screenshot, der zeigt, wie eine Vorlage über das Vorlagen-Dashboard ausgeführt wird."]
+
++
+Die Seite _Run Template_ wird angezeigt und führt sofort die Suche aus, die in der Vorlage definiert wurde, um die Volumes zu finden, die den Kriterien entsprechen.
+
+. Die Liste der zurückgegebenen Volumes im Bereich _Volume Results_ anzeigen.
++
+image:screenshot_template_find_search_results.png["Ein Screenshot, in dem die Volumes angezeigt werden, die aus den Suchkriterien für die Suche nach Ressourcen zurückgegeben wurden."]
+
+. Wenn die Ergebnisse Ihren Erwartungen entsprechen, aktivieren Sie das Kontrollkästchen für jedes Volume, für das Cloud Backup aktiviert werden soll, indem Sie die Kriterien aus dem Teil _Cloud Backup auf Volume_ aktivieren, und klicken Sie auf *Vorlage ausführen*.
++
+Wenn die Ergebnisse nicht den Erwartungen entsprechen, klicken Sie auf image:screenshot_edit_icon.gif["Bleistiftsymbol bearbeiten"] Neben _Suchkriterien_ und verfeinern Sie die Suche weiter.
+
+
+
+Die Vorlage wird ausgeführt und sie aktiviert Cloud Backup für jedes Volume, das Sie anhand der Suchkriterien geprüft haben.
+
+Jeder Fehler wird auf der Seite „_Running Your Template_“ aufgerufen, und Sie können die Probleme bei Bedarf lösen.

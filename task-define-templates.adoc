@@ -1,0 +1,719 @@
+---
+sidebar: sidebar 
+permalink: task-define-templates.html 
+keywords: templates, resource templates, services templates, volume templates, cvo working environment template, find volumes 
+summary: Wählen Sie eine oder mehrere der von NetApp bereitgestellten „Aktionen“ aus und erstellen Sie schnell eine Applikationsvorlage, mit der Ihr Unternehmen die Erstellung von Ressourcen optimieren kann. 
+---
+= Erstellen von Anwendungsvorlagen für Ihr Unternehmen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Wählen Sie eine oder mehrere der von NetApp bereitgestellten „Aktionen“ aus und erstellen Sie schnell eine Applikationsvorlage, mit der Ihr Unternehmen die Erstellung von Ressourcen optimieren kann.
+
+
+
+== Schnellstart
+
+Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.
+
+.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"[] alt=„One“></span> erforderliche Voraussetzungen prüfen
+* Bevor Benutzer ein Volume für ein Cloud Volumes ONTAP-, On-Premises-ONTAP- oder Azure NetApp Files-System mit einer Vorlage erstellen können, stellen Sie sicher, dass sie Zugriff auf eine geeignete Arbeitsumgebung haben, in der das Volume implementiert wird.
+
+
+* Wenn Sie eine „Aktion“ des Cloud-Services zu Ihrer Vorlage hinzufügen möchten, z. B. https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^] Oder https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^], Stellen Sie sicher, dass der Service in Ihrer Umgebung aktiv ist und lizenziert ist.
+
+
+[role="quick-margin-para"]
+Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Editor* und wählen Sie die Aktionen aus, die Sie in Ihrer Vorlage verwenden möchten.
+
+[role="quick-margin-para"]
+Befolgen Sie die Erstellungsschritte, und definieren Sie die Aktionen, die von der Vorlage ausgeführt werden.
+
+
+
+== Anforderungen
+
+Lesen Sie die folgenden Anforderungen, um sicherzustellen, dass Sie über eine unterstützte Konfiguration verfügen.
+
+* Falls Sie noch keinen Connector haben, https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["Weitere Informationen zum Erstellen von Anschlüssen finden Sie unter"^] Für AWS, Azure und GCP.
+* Stellen Sie beim Erstellen einer Cloud Volumes ONTAP Volume-Vorlage sicher, dass Ihren Benutzern eine Cloud Volumes ONTAP Arbeitsumgebung zur Verfügung steht. Lesen Sie, wie ein Cloud Volumes ONTAP System in gestartet wird https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-otc-aws.html["AWS"^], https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-otc-azure.html["Azure"^], Oder in https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-gcp.html["GCP"^].
+* Stellen Sie beim Erstellen einer lokalen ONTAP Volume-Vorlage sicher, dass Ihren Benutzern eine lokale ONTAP Arbeitsumgebung zur Verfügung steht. Informieren Sie sich darüber https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-discovering-ontap.html["Entdecken Sie ein lokales ONTAP System"^] In BlueXP.
+* Stellen Sie beim Erstellen einer Azure NetApp Files Volume-Vorlage sicher, dass Ihren Benutzern eine Azure NetApp Files Arbeitsumgebung zur Verfügung steht. Informieren Sie sich darüber https://docs.netapp.com/us-en/cloud-manager-azure-netapp-files/task-quick-start.html["Schaffung einer Azure NetApp Files-Arbeitsumgebung"^] In BlueXP.
+* Wenn Sie Vorhaben, ein Volume in der Vorlage mit Cloud Backup zu sichern, stellen Sie sicher, dass in Ihrer Umgebung Cloud Backup aktiviert ist.
+* Wenn Sie Vorhaben, Volumes in der Vorlage mit Cloud Data Sense zu scannen, stellen Sie sicher, dass in Ihrer Umgebung Cloud Data Sense aktiviert ist.
+* Wenn Sie die Replizierung in der Vorlage aktivieren möchten und sich die Vorlage für ein On-Premises ONTAP Volume befindet, muss das ONTAP Cluster über eine aktive SnapMirror Lizenz verfügen.
+
+
+
+
+== Beispiele für das Erstellen von Ressourcen mithilfe von Vorlagen
+
+Mit Ressourcenvorlagen können Sie neue Volumes oder eine neue Cloud Volumes ONTAP Arbeitsumgebung erstellen.
+
+
+
+=== Erstellen einer Vorlage für ein Cloud Volumes ONTAP Volume
+
+Siehe https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-create-volumes.html["Wie stellt man Cloud Volumes ONTAP Volumes bereit"^] Für Details zu allen Parametern, die Sie in der Cloud Volumes ONTAP-Volume-Vorlage angeben müssen,
+
+In diesem Beispiel erstellen wir eine Vorlage mit dem Namen „CVO Volume for Databases“, die folgende zwei Aktionen enthält:
+
+* Cloud Volumes ONTAP Volume erstellen
++
+Erstellung des Volumes für die AWS Umgebung, Konfiguration mit 100 GB Storage, Einstellung der Snapshot Richtlinie auf „Standard“ und Aktivierung der Storage-Effizienz
+
+* Cloud Backup Aktivieren
++
+Erstellen Sie 30 tägliche, 13 wöchentliche und 3 monatliche Backups (unter Verwendung der Richtlinie „[3 Months Retention_“).
+
+
+
+.Schritte
+. Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Templates* und klicken Sie auf *Neue Vorlage hinzufügen*.
++
+Die Seite _Select_a Template_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_cvo.png["Ein Screenshot zeigt, wie die primäre Aktion ausgewählt wird, die mit dieser Vorlage ausgeführt wird."]
+
+. Wählen Sie als Ressourcentyp, den Sie erstellen möchten *Volume für Cloud Volumes ONTAP + Backup* aus, und klicken Sie auf *Get Started*.
++
+Die Seite „ Volume in Cloud Volumes ONTAP Aktionsdefinition erstellen “ wird angezeigt.
+
++
+image:screenshot_create_template_define_action_cvo.png["Ein Screenshot mit einer leeren CVO-Vorlage, die Sie ausfüllen müssen."]
+
+. *Aktionsname*: Geben Sie optional anstelle des Standardwerts einen benutzerdefinierten Aktionsnamen ein.
+. *Kontext:* Geben Sie den Kontext der Arbeitsumgebung von Cloud Volumes ONTAP ein; falls erforderlich.
++
+Wenn Benutzer die Vorlage aus einer vorhandenen Arbeitsumgebung starten, werden diese Informationen automatisch ausgefüllt.
+
++
+Wenn Benutzer die Vorlage über das Vorlagen-Dashboard starten (nicht im Kontext einer Arbeitsumgebung), müssen sie die Arbeitsumgebung und die SVM auswählen, in der das Volume erstellt werden soll. Aus diesem Grund werden diese Felder als „editierbar“ markiert.
+
+. *Details:* Geben Sie den Namen und die Größe des Datenträgers ein.
++
+[cols="25,75"]
+|===
+| Feld | Beschreibung 
+
+
+| Volume-Name | Klicken Sie in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Namen eingeben lassen, oder Sie können angeben, dass der Volumenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (Regex) folgt, den Sie eingeben. Beispielsweise könnten Sie angeben, dass „db“ ein erforderliches Präfix, Suffix, oder enthält; wobei der Benutzer Volume-Namen wie „db_vol1“, „vol1_db“ oder „vol_db_1“ hinzufügen muss. 
+
+
+| Volume-Größe | Sie können einen Bereich zulässiger Werte angeben oder eine feste Größe festlegen. Dieser Wert ist in GB. Für unser Beispiel können wir einen Fixwert *100* hinzufügen. 
+
+
+| Tags | Geben Sie einen Namen und ein Wertpaar für ein Tag ein, das Sie diesem Volume zuordnen möchten. Sie können beispielsweise „Kostenstelle“ als Tag-Name und den Kostenstelle-Code „6655829“ als Wert hinzufügen. Sie können einem Volume mehrere Tags zuordnen, indem Sie mehr Tag-Namen und Wertpaare hinzufügen. 
+|===
+. *Schutz:* Wählen Sie aus, ob für dieses Volume Snapshot-Kopien erstellt werden sollen, indem Sie „Default“ oder eine andere Richtlinie auswählen oder „Keine“ wählen, wenn Sie keine Snapshot-Kopien erstellen möchten.
+. *Nutzungsprofil:* Wählen Sie, ob Storage-Effizienzfunktionen von NetApp auf das Volume angewendet werden. Dies schließt Thin Provisioning, Deduplizierung und Komprimierung ein. So halten Sie beispielsweise die Storage-Effizienz aktiviert.
+. *Festplattentyp:* Wählen Sie den Cloud Storage-Anbieter und den Festplattentyp aus. Bei einigen Festplattenauswahlen können Sie auch einen minimalen und maximalen IOPS- oder Durchsatzwert (MB/s) auswählen. Die Definition einer bestimmten Quality of Service (QoS) ist im Prinzip möglich.
+. *Protokolloptionen:* Wählen Sie *NFS* oder *SMB*, um das Protokoll des Volumes einzustellen. Und dann geben die Protokolldetails an.
++
+[cols="25,75"]
+|===
+| NFS-Felder | Beschreibung 
+
+
+| Zugriffssteuerung | Legen Sie fest, ob für den Zugriff auf das Volume Zugriffskontrollen erforderlich sind. 
+
+
+| Exportrichtlinie | Erstellen einer Exportrichtlinie, um die Clients im Subnetz zu definieren, die auf das Volume zugreifen können. 
+
+
+| NFS-Version | Wählen Sie die NFS-Version für das Volume aus: Entweder _NFSv3_ oder _NFSv4_, oder Sie können beide auswählen. 
+|===
++
+[cols="25,75"]
+|===
+| SMB-Felder | Beschreibung 
+
+
+| Freigabename | Klicken Sie in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können dem Administrator einen beliebigen Namen (Freitext) eingeben lassen oder angeben, dass der Freigabenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (regex) folgt, den Sie eingeben. 
+
+
+| Berechtigungen | Wählen Sie die Zugriffsebene für eine Freigabe für Benutzer und Gruppen aus (auch Zugriffskontrolllisten oder ACLs genannt). 
+
+
+| Benutzer/Gruppen | Geben Sie lokale oder Domain-Windows-Benutzer oder -Gruppen oder UNIX-Benutzer oder -Gruppen an. Wenn Sie einen Domain-Windows-Benutzernamen angeben, müssen Sie die Domäne des Benutzers mit dem Format Domain\Benutzername einschließen. 
+|===
+. *Tiering:* Wählen Sie die Tiering Policy, die Sie auf das Volume anwenden möchten, oder setzen Sie diese auf „Keine“, wenn Sie kalte Daten von diesem Volume nicht in einen Objekt-Storage verlagern möchten.
++
+Siehe https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/concept-data-tiering.html#volume-tiering-policies["Tiering von Volumes"^] Eine Übersicht finden Sie unter https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-tiering.html["Tiering inaktiver Daten in Objektspeicher"^] Um sicherzustellen, dass Ihre Umgebung für Tiering eingerichtet ist.
+
+. Klicken Sie auf *Anwenden*, nachdem Sie die für diese Aktion erforderlichen Parameter definiert haben.
++
+Wenn die Vorlagenwerte korrekt ausgefüllt sind, wird dem Feld „Volume in Cloud Volumes ONTAP erstellen“ ein grünes Häkchen hinzugefügt.
+
+. Klicken Sie auf das Feld *Cloud Backup auf Volume aktivieren* und das Dialogfeld _Cloud Backup auf Volume aktivieren Aktionsdefinition_ wird angezeigt, damit Sie die Details zum Cloud Backup ausfüllen können.
++
+image:screenshot_create_template_add_action.png["Ein Screenshot mit zusätzlichen Aktionen, die Sie dem erstellten Volume hinzufügen können."]
+
+. Wählen Sie die *3 Monate Retention* Backup Policy, um 30 tägliche, 13 wöchentliche und 3 monatliche Backups zu erstellen.
+. Unter den Feldern Arbeitsumgebung und Volume Name können Sie drei Optionen auswählen, mit denen Sie angeben, für welches Volume eine Sicherung aktiviert ist. Siehe link:reference-template-building-blocks.html#pass-values-between-template-actions["So füllen Sie diese Felder aus"].
+. Klicken Sie auf *Anwenden* und das Dialogfeld Cloud Backup wird gespeichert.
+. Geben Sie oben links den Vorlagennamen *CVO Volume für Datenbanken* (für dieses Beispiel) ein.
+. Klicken Sie auf *Settings & Drift*, um eine detailliertere Beschreibung bereitzustellen, damit diese Vorlage von anderen ähnlichen Vorlagen unterschieden werden kann, und so können Sie Drift für die Gesamtvorlage aktivieren und dann auf *Apply* klicken.
++
+Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei der Erstellung dieser Vorlage für Parameter eingegeben haben.
+
+. Klicken Sie Auf *Vorlage Speichern*.
+
+
+Die Vorlage wird erstellt, und Sie werden wieder in das Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
+
+Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+
+
+
+=== Erstellen einer Vorlage für ein Azure NetApp Files Volume
+
+Die Erstellung einer Vorlage für ein Azure NetApp Files Volume erfolgt auf dieselbe Weise wie die Erstellung einer Vorlage für ein Cloud Volumes ONTAP Volume.
+
+Siehe https://docs.netapp.com/us-en/cloud-manager-azure-netapp-files/task-manage-anf-volumes.html#creating-volumes["Wie stellt man Azure NetApp Files Volumes bereit"^] Weitere Informationen zu allen Parametern, die Sie in der ANF-Volumenvorlage ausfüllen müssen.
+
+.Schritte
+. Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Templates* und klicken Sie auf *Neue Vorlage hinzufügen*.
++
+Die Seite _Select_a Template_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_blank.png["Ein Screenshot zeigt, wie die primäre Aktion ausgewählt wird, die mit dieser Vorlage ausgeführt wird."]
+
+. Wählen Sie *leere Vorlage* und klicken Sie auf *Start*.
+. Wählen Sie *Volumen in Azure NetApp Files* als Ressourcentyp aus, den Sie erstellen möchten, und klicken Sie auf *Anwenden*.
++
+Die Seite „ Volume in Azure NetApp Files Aktionsdefinition erstellen “ wird angezeigt.
+
++
+image:screenshot_create_template_define_action_anf.png["Ein Screenshot mit einer leeren ANF-Vorlage, die Sie ausfüllen müssen."]
+
+. *Aktionsname*: Geben Sie optional anstelle des Standardwerts einen benutzerdefinierten Aktionsnamen ein.
+. *Volume Details:* Geben Sie einen Namen und eine Größe des Datenträgers ein, und geben Sie optional Tags für das Volume an.
++
+[cols="25,75"]
+|===
+| Feld | Beschreibung 
+
+
+| Volume-Name | Klicken Sie in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Namen eingeben lassen, oder Sie können angeben, dass der Volumenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (Regex) folgt, den Sie eingeben. Beispielsweise könnten Sie angeben, dass „db“ ein erforderliches Präfix, Suffix, oder enthält; wobei der Benutzer Volume-Namen wie „db_vol1“, „vol1_db“ oder „vol_db_1“ hinzufügen muss. 
+
+
+| Volume-Größe | Sie können einen Bereich zulässiger Werte angeben oder eine feste Größe festlegen. Dieser Wert ist in GB. 
+
+
+| Tags | Geben Sie einen Namen und ein Wertpaar für ein Tag ein, das Sie diesem Volume zuordnen möchten. Sie können beispielsweise „Kostenstelle“ als Tag-Name und den Kostenstelle-Code „6655829“ als Wert hinzufügen. Sie können einem Volume mehrere Tags zuordnen, indem Sie mehr Tag-Namen und Wertpaare hinzufügen. 
+|===
+. *Protokoll:* Wählen Sie *NFSv3*, *NFSv4.1* oder *SMB*, um das Protokoll des Volumes einzustellen. Und dann geben die Protokolldetails an.
++
+[cols="25,75"]
+|===
+| NFS-Felder | Beschreibung 
+
+
+| Volume-Pfad | Wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Pfad eingeben lassen, oder Sie können angeben, dass der Pfadname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (regex) folgt, den Sie eingeben. 
+
+
+| Regeln Für Die Exportrichtlinie | Erstellen einer Exportrichtlinie, um die Clients im Subnetz zu definieren, die auf das Volume zugreifen können. 
+|===
++
+[cols="25,75"]
+|===
+| SMB-Felder | Beschreibung 
+
+
+| Volume-Pfad | Wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Pfad eingeben lassen, oder Sie können angeben, dass der Pfadname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (regex) folgt, den Sie eingeben. 
+|===
+. *Kontext:* Geben Sie die Arbeitsumgebung von Azure NetApp Files ein, Details für ein neues oder vorhandenes Azure NetApp Files-Konto und weitere Details.
++
+[cols="25,75"]
+|===
+| Feld | Beschreibung 
+
+
+| Arbeitsumgebung | Wenn Benutzer des Storage-Administrators die Vorlage aus einer vorhandenen Arbeitsumgebung starten, werden diese Informationen automatisch ausgefüllt. Wenn Benutzer die Vorlage über das Vorlagen-Dashboard starten (nicht im Kontext einer Arbeitsumgebung), müssen sie die Arbeitsumgebung auswählen, in der das Volume erstellt werden soll. 
+
+
+| Name des NetApp Accounts | Geben Sie den Namen ein, den Sie für das Konto verwenden möchten. 
+
+
+| Azure-Abonnement-ID | Geben Sie die Azure-Abonnement-ID ein. Dies ist die volle ID in einem Format ähnlich wie "2b04f26-7de6-42eb-9234-e2903d7s327". 
+
+
+| Region | Geben Sie die Region mithilfe des ein https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.documents.locationnames?view=azure-dotnet#fields["Interner Name der Region"^]. 
+
+
+| Name der Ressourcengruppe | Geben Sie den Namen der Ressourcengruppe ein, die Sie verwenden möchten. 
+
+
+| Name Des Kapazitäts-Pools | Geben Sie den Namen eines vorhandenen Kapazitäts-Pools ein. 
+
+
+| Subnetz | Geben Sie vnet und Subnetz ein. Dieser Wert enthält den vollständigen Pfad in einem Format, das dem Format „/Subskriptions/<subscription_id>/resourceGroups/<Resource_Group>/ Providers/Microsoft.Network/virtualNetworks/<vpc_name>/subnets/<subhet_name>" ähnelt. 
+|===
+. *Snapshot Kopie:* Geben Sie die Snapshot-ID für einen vorhandenen Volume-Snapshot ein, wenn dieses neue Volume anhand der Eigenschaften eines vorhandenen Volumes erstellt werden soll.
+. Klicken Sie auf *Anwenden*, nachdem Sie die für diese Aktion erforderlichen Parameter definiert haben.
+. Geben Sie oben links den Namen ein, den Sie für die Vorlage verwenden möchten.
+. Klicken Sie auf *Settings & Drift*, um eine detailliertere Beschreibung bereitzustellen, damit diese Vorlage von anderen ähnlichen Vorlagen unterschieden werden kann, und so können Sie Drift für die Gesamtvorlage aktivieren und dann auf *Apply* klicken.
++
+Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei der Erstellung dieser Vorlage für Parameter eingegeben haben.
+
+. Klicken Sie Auf *Vorlage Speichern*.
+
+
+Die Vorlage wird erstellt, und Sie werden wieder in das Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
+
+Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+
+
+
+=== Erstellen einer Vorlage für ein lokales ONTAP Volume
+
+Siehe https://docs.netapp.com/us-en/cloud-manager-ontap-onprem/task-provisioning-ontap.html#creating-volumes-for-ontap-clusters["Vorgehensweise bei der Bereitstellung von ONTAP Volumes vor Ort"^] Für Details zu allen Parametern, die Sie in der lokalen ONTAP Volume-Vorlage ausfüllen müssen
+
+.Schritte
+. Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Templates* und klicken Sie auf *Neue Vorlage hinzufügen*.
++
+Die Seite _Select_a Template_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_blank.png["Ein Screenshot zeigt, wie die primäre Aktion ausgewählt wird, die mit dieser Vorlage ausgeführt wird."]
+
+. Wählen Sie *leere Vorlage* und klicken Sie auf *Start*.
++
+Die Seite _Neue Aktion hinzufügen_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_onprem.png["Ein Screenshot, in dem die primäre Aktion auf der Seite Neue Aktion hinzufügen angezeigt wird."]
+
+. Wählen Sie *Volumen in On-Premise ONTAP* als Ressourcentyp aus, die Sie erstellen möchten, und klicken Sie auf *Anwenden*.
++
+Die Seite „ Volume in On-Premises ONTAP Aktionsdefinition erstellen “ wird angezeigt.
+
++
+image:screenshot_create_template_define_action_onprem.png["Ein Screenshot mit einer leeren onprem ONTAP-Vorlage, die Sie ausfüllen müssen."]
+
+. *Aktionsname*: Geben Sie optional anstelle des Standardwerts einen benutzerdefinierten Aktionsnamen ein.
+. *Kontext:* Geben Sie den On-Premise-Kontext der ONTAP-Arbeitsumgebung ein; falls erforderlich.
++
+Wenn Benutzer die Vorlage aus einer vorhandenen Arbeitsumgebung starten, werden diese Informationen automatisch ausgefüllt.
+
++
+Wenn Benutzer die Vorlage über das Vorlagen-Dashboard starten (nicht im Kontext einer Arbeitsumgebung), müssen sie die Arbeitsumgebung, die SVM und das Aggregat auswählen, in dem das Volume erstellt werden soll.
+
+. *Details:* Geben Sie den Namen und die Größe des Datenträgers ein.
++
+[cols="25,75"]
+|===
+| Feld | Beschreibung 
+
+
+| Volume-Name | Klicken Sie in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Namen eingeben lassen, oder Sie können angeben, dass der Volumenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (Regex) folgt, den Sie eingeben. Beispielsweise könnten Sie angeben, dass „db“ ein erforderliches Präfix, Suffix, oder enthält; wobei der Benutzer Volume-Namen wie „db_vol1“, „vol1_db“ oder „vol_db_1“ hinzufügen muss. 
+
+
+| Volume-Größe | Sie können einen Bereich zulässiger Werte angeben oder eine feste Größe festlegen. Dieser Wert ist in GB. Für unser Beispiel können wir einen Fixwert *100* hinzufügen. 
+
+
+| Tags | Geben Sie einen Namen und ein Wertpaar für ein Tag ein, das Sie diesem Volume zuordnen möchten. Sie können beispielsweise „Kostenstelle“ als Tag-Name und den Kostenstelle-Code „6655829“ als Wert hinzufügen. Sie können einem Volume mehrere Tags zuordnen, indem Sie mehr Tag-Namen und Wertpaare hinzufügen. 
+|===
+. *Schutz:* Wählen Sie aus, ob für dieses Volume Snapshot-Kopien erstellt werden sollen, indem Sie „Default“ oder eine andere Richtlinie auswählen oder „Keine“ wählen, wenn Sie keine Snapshot-Kopien erstellen möchten.
+. *Nutzungsprofil:* Wählen Sie, ob Storage-Effizienzfunktionen von NetApp auf das Volume angewendet werden. Dies schließt Thin Provisioning, Deduplizierung und Komprimierung ein.
+. *Protokolloptionen:* Wählen Sie *NFS* oder *SMB*, um das Protokoll des Volumes einzustellen. Und dann geben die Protokolldetails an.
++
+[cols="25,75"]
+|===
+| NFS-Felder | Beschreibung 
+
+
+| Zugriffssteuerung | Legen Sie fest, ob für den Zugriff auf das Volume Zugriffskontrollen erforderlich sind. 
+
+
+| Exportrichtlinie | Erstellen einer Exportrichtlinie, um die Clients im Subnetz zu definieren, die auf das Volume zugreifen können. 
+
+
+| NFS-Version | Wählen Sie die NFS-Version für das Volume aus: Entweder _NFSv3_ oder _NFSv4_, oder Sie können beide auswählen. 
+|===
++
+[cols="25,75"]
+|===
+| SMB-Felder | Beschreibung 
+
+
+| Freigabename | Klicken Sie in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können dem Administrator einen beliebigen Namen (Freitext) eingeben lassen oder angeben, dass der Freigabenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (regex) folgt, den Sie eingeben. 
+
+
+| Berechtigungen | Wählen Sie die Zugriffsebene für eine Freigabe für Benutzer und Gruppen aus (auch Zugriffskontrolllisten oder ACLs genannt). 
+
+
+| Benutzer/Gruppen | Geben Sie lokale oder Domain-Windows-Benutzer oder -Gruppen oder UNIX-Benutzer oder -Gruppen an. Wenn Sie einen Domain-Windows-Benutzernamen angeben, müssen Sie die Domäne des Benutzers mit dem Format Domain\Benutzername einschließen. 
+|===
+. Klicken Sie auf *Anwenden*, nachdem Sie die für diese Aktion erforderlichen Parameter definiert haben.
++
+Wenn die Vorlagenwerte korrekt ausgefüllt sind, wird das Kontrollkästchen „Volume in On-Premises ONTAP erstellen“ mit einem grünen Häkchen markiert.
+
+. Geben Sie oben links den Vorlagennamen ein.
+. Klicken Sie auf *Settings & Drift*, um eine detailliertere Beschreibung bereitzustellen, damit diese Vorlage von anderen ähnlichen Vorlagen unterschieden werden kann, und so können Sie Drift für die Gesamtvorlage aktivieren und dann auf *Apply* klicken.
++
+Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei der Erstellung dieser Vorlage für Parameter eingegeben haben.
+
+. Klicken Sie Auf *Vorlage Speichern*.
+
+
+Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
+
+Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+
+
+
+=== Erstellen Sie eine Vorlage für eine Cloud Volumes ONTAP Arbeitsumgebung
+
+Mithilfe von Vorlagen können Sie eine Cloud Volumes ONTAP-Arbeitsumgebung mit nur einem Node oder einer hochverfügbaren Umgebung erstellen.
+
+[NOTE]
+====
+* Dieser Support wird derzeit nur für AWS Umgebungen angeboten.
+* Diese Vorlage erstellt nicht das erste Volume in der Arbeitsumgebung. Um das Volume zu erstellen, müssen Sie in der Vorlage eine Aktion „Volume in Cloud Volumes ONTAP erstellen“ hinzufügen.
+
+
+====
+Siehe https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-otc-aws.html#launching-a-single-node-cloud-volumes-ontap-system-in-aws["So starten Sie ein Single-Node Cloud Volumes ONTAP System in AWS"^] Oder A https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-deploying-otc-aws.html#launching-a-cloud-volumes-ontap-ha-pair-in-aws["Cloud Volumes ONTAP HA-Paar in AWS"^] Für die erforderlichen Voraussetzungen und Details zu allen Parametern müssen Sie in dieser Vorlage definieren.
+
+.Schritte
+. Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Templates* und klicken Sie auf *Neue Vorlage hinzufügen*.
++
+Die Seite _Select_a Template_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_blank.png["Ein Screenshot zeigt, wie die primäre Aktion ausgewählt wird, die mit dieser Vorlage ausgeführt wird."]
+
+. Wählen Sie *leere Vorlage* und klicken Sie auf *Start*.
++
+Die Seite _Neue Aktion hinzufügen_ wird angezeigt.
+
++
+image:screenshot_create_template_cvo_env_aws.png["Ein Screenshot, in dem die primäre Aktion auf der Seite Neue Aktion hinzufügen angezeigt wird."]
+
+. Wählen Sie *Arbeitsumgebung in AWS erstellen (Single Node)* oder *Arbeitsumgebung in AWS erstellen (hohe Verfügbarkeit)* als Ressourcentyp, den Sie erstellen möchten, und klicken Sie auf *Anwenden*.
++
+In diesem Beispiel wird die Seite „_Create Working Environment in AWS (Single Node)_“ angezeigt.
+
++
+image:screenshot_create_template_cvo_env_aws1.png["Einen Screenshot mit einer leeren Vorlage für die Arbeitsumgebung in Cloud Volumes ONTAP, die Sie ausfüllen müssen"]
+
+. *Aktionsname*: Geben Sie optional anstelle des Standardwerts einen benutzerdefinierten Aktionsnamen ein.
+. *Details und Anmeldeinformationen*: Wählen Sie die zu verwendenden AWS-Anmeldeinformationen aus, geben Sie einen Namen für die Arbeitsumgebung ein und fügen Sie ggf. Tags hinzu.
++
+Einige der Felder auf dieser Seite sind selbsterklärend. In der folgenden Tabelle werden Felder beschrieben, für die Sie möglicherweise Hilfe benötigen:
+
++
+[cols="25,75"]
+|===
+| Feld | Beschreibung 
+
+
+| Anmeldedaten | Dies sind die Anmeldedaten für das Cloud Volumes ONTAP Cluster-Administratorkonto. Sie können diese Anmeldedaten für die Verbindung mit Cloud Volumes ONTAP über ONTAP System Manager oder dessen CLI verwenden. 
+
+
+| Name der Arbeitsumgebung | BlueXP verwendet den Namen der Arbeitsumgebung, um sowohl das Cloud Volumes ONTAP System als auch die Amazon EC2 Instanz zu benennen. Der Name wird auch als Präfix für die vordefinierte Sicherheitsgruppe verwendet, wenn Sie diese Option auswählen. Klicken Sie in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können einen beliebigen Namen eingeben, indem Sie *Freitext* auswählen, oder Sie können angeben, dass der Name der Arbeitsumgebung ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (regex) folgt, den Sie eingeben. 
+
+
+| Tags | AWS-Tags sind Metadaten für Ihre AWS-Ressourcen. BlueXP fügt die Tags zur Cloud Volumes ONTAP-Instanz und jeder der Instanz zugeordneten AWS-Ressource hinzu. Informationen zu Tags finden Sie unter https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html["AWS Dokumentation: Tagging der Amazon EC2 Ressourcen"^]. 
+|===
+. *Standort & Konnektivität*: Geben Sie die Netzwerkinformationen ein, die Sie im aufgezeichnet haben https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-planning-your-config.html#aws-network-information-worksheet["AWS Worksheet"^]. Dazu zählen die AWS Region, die VPC, das Subnetz und die Sicherheitsgruppe.
++
+Wenn Sie über einen AWS Outpost verfügen, können Sie ein Cloud Volumes ONTAP System mit einem einzelnen Node in diesem Outpost implementieren, indem Sie die Outpost VPC auswählen. Die Erfahrung ist mit jeder anderen VPC, die in AWS residiert.
+
+. *Authentifizierungsmethode*: Wählen Sie die SSH-Authentifizierungsmethode, die Sie verwenden möchten; entweder ein Passwort oder ein Schlüsselpaar.
+. *Datenverschlüsselung*: Wählen Sie keine Datenverschlüsselung oder Verschlüsselung von AWS.
++
+Für die von AWS gemanagte Verschlüsselung können Sie einen anderen Customer Master Key (CMK) von Ihrem Konto oder einem anderen AWS Konto auswählen.
+
++
+https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-setting-up-kms.html["So richten Sie AWS KMS für Cloud Volumes ONTAP ein"^].
+
+. *Lademethode*: Geben Sie an, welche Ladeoption Sie mit diesem System verwenden möchten.
++
+https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/concept-licensing.html["Erfahren Sie mehr über diese Lademethoden"^].
+
+. *NetApp Support Site Account*: Wählen Sie einen NetApp Support Site Account aus.
+. *Vorkonfigurierte Pakete*: Wählen Sie eines der vier vorkonfigurierten Pakete aus, die mehrere Faktoren für Volumen bestimmen, die in der Arbeitsumgebung erzeugt werden.
+. *SMB Configuration*: Wenn Sie Volumes mit SMB in dieser Arbeitsumgebung bereitstellen möchten, können Sie einen CIFS-Server und zugehörige Konfigurationselemente einrichten.
+. Klicken Sie auf *Anwenden*, nachdem Sie die für diese Aktion erforderlichen Parameter definiert haben.
++
+Wenn die Vorlagenwerte korrekt ausgefüllt sind, wird das Kontrollkästchen „Arbeitsumgebung in AWS erstellen (einzelner Knoten)“ mit einem grünen Häkchen markiert.
+
+. Sie können eine weitere Aktion in dieser Vorlage hinzufügen, um ein Volume für diese Arbeitsumgebung zu erstellen. Wenn ja, klicken Sie auf image:button_plus_sign_round.png["Plus-Taste"] Und fügen Sie diese Aktion hinzu. Informieren Sie sich darüber  a template for a Cloud Volumes ONTAP volume,Erstellen einer Vorlage für ein Cloud Volumes ONTAP Volume Entsprechende Details.
+. Geben Sie oben links den Vorlagennamen ein.
+. Klicken Sie auf *Settings & Drift*, um eine detailliertere Beschreibung bereitzustellen, damit diese Vorlage von anderen ähnlichen Vorlagen unterschieden werden kann, und so können Sie Drift für die Gesamtvorlage aktivieren und dann auf *Apply* klicken.
++
+Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei der Erstellung dieser Vorlage für Parameter eingegeben haben.
+
+. Klicken Sie Auf *Vorlage Speichern*.
+
+
+Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
+
+Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+
+
+
+== Beispiele für das Auffinden vorhandener Ressourcen mithilfe von Vorlagen
+
+Mithilfe der Aktion „ vorhandene Ressourcen finden“ können Sie spezielle Arbeitsumgebungen finden oder vorhandene Volumes finden, indem Sie eine Vielzahl von Filtern zur Verfügung stellen, sodass Sie die Suche auf die Ressourcen einschränken können, für die Sie sich interessieren. Nachdem Sie die richtigen Ressourcen gefunden haben, können Sie Volumes zu einer Arbeitsumgebung hinzufügen oder einen Cloud-Service für die resultierenden Volumes aktivieren.
+
+
+NOTE: Derzeit sind die Volumes innerhalb von Cloud Volumes ONTAP, On-Premises-ONTAP und Azure NetApp Files Systemen verfügbar. Außerdem können Sie Cloud-Backups auf Cloud Volumes ONTAP und lokalen ONTAP Volumes aktivieren. Weitere Ressourcen und Services werden zu einem späteren Zeitpunkt verfügbar sein.
+
+
+
+=== Finden Sie vorhandene Volumes und aktivieren Sie einen Cloud-Service
+
+Mit der aktuellen Aktionsfunktion _Find Existing Resources_ können Sie Volumes in Cloud Volumes ONTAP und lokalen ONTAP-Arbeitsumgebungen finden, in denen derzeit Cloud Backup oder Cloud Data Sense nicht aktiviert ist. Wenn Sie Cloud Backup auf bestimmten Volumes aktivieren, wird durch diese Aktion auch die als Standardrichtlinie für diese Arbeitsumgebung konfigurierte Backup-Richtlinie festgelegt, sodass alle zukünftigen Volumes in diesen Arbeitsumgebungen dieselbe Backup-Richtlinie verwenden können.
+
+.Schritte
+. Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Templates* und klicken Sie auf *Neue Vorlage hinzufügen*.
++
+Die Seite _Select_a Template_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_blank.png["Ein Screenshot zeigt, wie die primäre Aktion ausgewählt wird, die mit dieser Vorlage ausgeführt wird."]
+
+. Wählen Sie *leere Vorlage* und klicken Sie auf *Start*.
++
+Die Seite _Neue Aktion hinzufügen_ wird angezeigt.
+
++
+image:screenshot_create_template_find_resource_action.png["Ein Screenshot, in dem gezeigt wird, wie Sie die Aktion „vorhandene Ressourcen suchen“ auf der Seite „Neue Aktion hinzufügen“ auswählen."]
+
+. Wählen Sie *vorhandene Ressourcen finden* als die Art der Aktion, die Sie definieren möchten, und klicken Sie auf *Anwenden*.
++
+Die Seite „_Find Existing Resources Action Definition_“ wird angezeigt.
+
++
+image:screenshot_define_find_resource_action1.png["Ein Screenshot mit einer leeren Anzeige finden Sie die Vorlage für vorhandene Ressourcen, die Sie ausfüllen müssen."]
+
+. *Aktionsname*: Geben Sie anstelle des Standardwerts einen benutzerdefinierten Aktionsnamen ein. Beispiel: „Finden Sie große Volumes auf Cluster ABC und aktivieren Sie Backup“.
+. *Ressourcentyp:* Wählen Sie die Art der Ressource, die Sie suchen möchten. In diesem Fall können Sie *Bände in Cloud Volumes ONTAP* auswählen.
++
+Dies ist der einzige erforderliche Eintrag für diese Aktion. Sie könnten jetzt auf *Weiter* klicken und erhalten eine Liste aller Volumes auf allen Cloud Volumes ONTAP-Systemen in Ihrer Umgebung.
+
++
+Stattdessen sollten Sie einige Filter ausfüllen, um die Anzahl der Ergebnisse (in diesem Fall die Volumes) zu reduzieren, für die Sie die Aktion Cloud Backup anwenden werden.
+
+. Im Bereich _context_ können Sie eine bestimmte Arbeitsumgebung und einige weitere Details zu dieser Arbeitsumgebung auswählen.
++
+image:screenshot_define_find_resource_filter_context.png["Ein Screenshot mit den Kontextfiltern, die auf die Vorlage nach vorhandenen Ressourcen angewendet werden können."]
+
+. Im Bereich „_Details_“ können Sie den Namen des Volumes, den Bereich der Volume-Größe und alle Tags auswählen, die den Volumes zugewiesen sind.
++
+Klicken Sie für den Volume-Namen in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Namen eingeben lassen, oder Sie können angeben, dass der Volumenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (Regex) folgt, den Sie eingeben.
+
++
+Für die Volume-Größe können Sie einen Bereich angeben, z. B. alle Volumes zwischen 100 gib und 500 gib.
+
++
+Bei Tags können Sie die Suche weiter eingrenzen, so dass die Ergebnisse nur Volumen mit bestimmten Tag-Schlüssel/Wertpaare anzeigen.
+
++
+image:screenshot_define_find_resource_filter_details.png["Ein Screenshot mit den Detailfiltern, die auf die Vorlage nach vorhandenen Ressourcen angewendet werden können."]
+
+. Klicken Sie auf *Weiter* und die Seite wird aktualisiert, um die Suchkriterien anzuzeigen, die Sie in der Vorlage definiert haben.
++
+image:screenshot_define_find_resource_search_criteria.png["Ein Screenshot mit den Suchkriterien, die Sie für die Vorlage zum Suchen vorhandener Ressourcen definiert haben."]
+
+. Klicken Sie auf *Teste jetzt deine Suchkriterien* um die aktuellen Ergebnisse zu sehen.
++
+** Wenn die Ergebnisse nicht den Erwartungen entsprechen, klicken Sie auf image:screenshot_edit_icon.gif["Bleistiftsymbol bearbeiten"] Neben _Suchkriterien_ und verfeinern Sie Ihre Suche weiter.
+** Wenn die Ergebnisse gut sind, klicken Sie auf *Fertig*.
++
+Die abgeschlossene Aktion _vorhandene Ressourcen finden_ wird im Editor-Fenster angezeigt.
+
+
+
+. Klicken Sie auf das Pluszeichen, um eine weitere Aktion hinzuzufügen. Wählen Sie *Cloud Backup auf Volume* aktivieren und klicken Sie auf *Anwenden*.
++
+Die Aktion _Cloud Backup auf Volume_ aktivieren wird dem Fenster hinzugefügt.
+
++
+image:screenshot_template_add_backup_action.png["Ein Screenshot mit den Schritten, die zum Hinzufügen einer Cloud Backup-Aktion zu Ihrer Vorlage erforderlich sind."]
+
+. Jetzt können Sie die Backup-Kriterien wie unter beschrieben definieren  Backup functionality to a volume,Hinzufügen von Backup-Funktionen zu einem Volume Damit die Vorlage die richtige Backup-Richtlinie auf die von Ihnen ausgewählten Volumes in der Aktion „_Find Existing Resources_“ anwendet.
+. Klicken Sie auf *Anwenden*, um die Anpassung zu speichern, die Sie bei der Aktion „Backup“ vorgenommen haben, und klicken Sie anschließend auf *Vorlage speichern*, wenn Sie fertig sind.
+
+
+Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
+
+Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+
+
+
+=== Finden Sie bestehende Arbeitsumgebungen
+
+Mit der Aktion _vorhandene Ressourcen finden_ können Sie die Arbeitsumgebung finden und dann andere Vorlagenaktionen wie z. B. die Erstellung eines Volumes verwenden, um auf einfache Weise Aktionen in der vorhandenen Arbeitsumgebung auszuführen.
+
+.Schritte
+. Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Templates* und klicken Sie auf *Neue Vorlage hinzufügen*.
++
+Die Seite _Select_a Template_ wird angezeigt.
+
++
+image:screenshot_create_template_primary_action_blank.png["Ein Screenshot zeigt, wie die primäre Aktion ausgewählt wird, die mit dieser Vorlage ausgeführt wird."]
+
+. Wählen Sie *leere Vorlage* und klicken Sie auf *Start*.
++
+Die Seite _Neue Aktion hinzufügen_ wird angezeigt.
+
++
+image:screenshot_create_template_find_resource_action.png["Ein Screenshot, in dem gezeigt wird, wie Sie die Aktion „vorhandene Ressourcen suchen“ auf der Seite „Neue Aktion hinzufügen“ auswählen."]
+
+. Wählen Sie *vorhandene Ressourcen finden* als die Art der Aktion, die Sie definieren möchten, und klicken Sie auf *Anwenden*.
++
+Die Seite „_Find Existing Resources Action Definition_“ wird angezeigt.
+
++
+image:screenshot_define_find_work_env.png["Ein Screenshot mit einer leeren Anzeige finden Sie die Vorlage für vorhandene Ressourcen, die Sie ausfüllen müssen."]
+
+. *Aktionsname*: Geben Sie anstelle des Standardwerts einen benutzerdefinierten Aktionsnamen ein. Beispiel: „Finden Sie Arbeitsumgebungen, die Dallas umfassen“.
+. *Ressourcentyp:* Wählen Sie die Art der Ressource, die Sie suchen möchten. In diesem Fall würden Sie *Arbeitsumgebungen* auswählen.
++
+Dies ist der einzige erforderliche Eintrag für diese Aktion. Klicken Sie jetzt auf *Weiter* und Sie erhalten eine Liste aller Arbeitsumgebungen in Ihrer Umgebung.
+
++
+Stattdessen wird empfohlen, einige Filter auszufüllen, um die Anzahl der Ergebnisse (in diesem Fall Arbeitsumgebungen) zu reduzieren.
+
+. Nachdem Sie im Bereich _Details_ einige Filter definiert haben, können Sie eine bestimmte Arbeitsumgebung auswählen.
+. Klicken Sie auf *Weiter*, um Ihre Einstellungen zu speichern, und klicken Sie dann auf *Fertig*.
+. Geben Sie oben links den Vorlagennamen ein und klicken Sie dann auf *Vorlage speichern*
+
+
+Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
+
+Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+
+
+
+== Beispiele für die Aktivierung von Services mithilfe von Vorlagen
+
+Mit Servicevorlagen können Sie Cloud Backup, Cloud Data Sense oder Replication (SnapMirror) Services auf einem neu erstellen Volume aktivieren.
+
+
+
+=== Hinzufügen von Backup-Funktionen zu einem Volume
+
+Beim Erstellen einer Volume-Vorlage können Sie in der Vorlage hinzufügen, die Sie regelmäßig Backups des Volumes mithilfe der erstellen möchten https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^] Service:
+
+
+TIP: Diese Aktion gilt nicht für Azure NetApp Files Volumes.
+
+image:screenshot_template_backup.png["Ein Screenshot der Seite, um die Backup-Funktion für Ihre Volumes zu aktivieren."]
+
+. *Policy*: Wählen Sie die Backup Policy, die Sie verwenden möchten.
+. *Kontext*: Standardmäßig werden die Variablen für die Arbeitsumgebung, die Speicher-VM und das Volume ausgefüllt, um anzugeben, dass Sie Backups für das zuvor in dieser Vorlage erstellte Volume erstellen. Wenn Sie das also machen möchten, sind Sie alle eingerichtet.
++
+Wenn Sie Backups für ein anderes Volume erstellen möchten, können Sie diese Details manuell eingeben. Informieren Sie sich darüber link:reference-template-building-blocks.html#pass-values-between-template-actions["Füllen Sie die Kontextfelder aus"] Um ein anderes Volumen anzugeben.
+
+. Klicken Sie auf *Anwenden*, um Ihre Änderungen zu speichern.
+
+
+
+
+=== Hinzufügen von Data Sense Funktion zu einem Volume
+
+Beim Erstellen einer Volume-Vorlage können Sie die Vorlage hinzufügen, die Sie zum Scannen des Volumes mit der auf Compliance und Klassifizierung überprüfen möchten https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^] Service:
+
+image:screenshot_template_data_sense.png["Ein Screenshot der Seite, um die Scanfunktion für Ihre Volumes zu aktivieren."]
+
+. *Kontext*: Standardmäßig werden die Variablen für die Arbeitsumgebung, den Volume-Namen, die Volume-UUID, den Volume-Pfad und das Protokoll ausgefüllt, um anzuzeigen, dass Sie Daten für das zuvor in dieser Vorlage erstellte Volume scannen. Wenn Sie das also machen möchten, sind Sie alle eingerichtet.
++
+Wenn Sie Daten für ein anderes Volume scannen möchten, können Sie diese Details manuell eingeben. Informieren Sie sich darüber link:reference-template-building-blocks.html#pass-values-between-template-actions["Füllen Sie die Kontextfelder aus"] Um ein anderes Volumen anzugeben.
+
+. Klicken Sie auf *Anwenden*, um Ihre Änderungen zu speichern.
+
+
+
+
+=== Fügen Sie eine Replikationsfunktion zu einem Volume hinzu
+
+Beim Erstellen einer Volume-Vorlage können Sie die Daten im Volume mithilfe der in der Vorlage hinzufügen, die Sie replizieren möchten https://docs.netapp.com/us-en/cloud-manager-replication/concept-replication.html["Replizierung"^] Service: Daten können zu einem Cloud Volumes ONTAP-Cluster oder zu einem ONTAP Cluster vor Ort repliziert werden.
+
+
+TIP: Diese Aktion gilt nicht für Azure NetApp Files Volumes.
+
+Die Replikationsfunktion besteht aus drei Teilen: Auswahl des Quell-Volumes, Auswahl des Zielvolumens und Definition der Replikationseinstellungen. Jeder Abschnitt wird nachfolgend beschrieben.
+
+. *Quelldetails*: Geben Sie die Details zum Quell-Volume ein, das Sie replizieren möchten:
++
+image:screenshot_template_replication_source.png["Ein Screenshot der Seite, um den Speicherort des Replikationsquellvolumes zu definieren."]
+
++
+.. Standardmäßig werden die ersten drei Variablen für die Arbeitsumgebung, die Storage-VM und das Volume ausgefüllt, um anzugeben, dass das zuvor in dieser Vorlage erstellte Volume repliziert wird. Wenn Sie das also machen möchten, sind Sie alle eingerichtet.
++
+Wenn Sie ein anderes Volume replizieren möchten, können Sie diese Details manuell eingeben. Informieren Sie sich darüber link:reference-template-building-blocks.html#pass-values-between-template-actions["Füllen Sie die Kontextfelder aus"] Um ein anderes Volumen anzugeben.
+
+.. Zur Replizierung muss die Quell- und Zielarbeitsumgebung über die Intercluster LIFs verbunden sein. Geben Sie die Intercluster-LIF-IP-Adresse für die Quellarbeitsumgebung ein.
++
+Um diese Informationen zu erhalten: Doppelklicken Sie auf die Arbeitsumgebung, klicken Sie auf das Menü-Symbol und klicken Sie auf Informationen.
+
+
+
+. *Zieldetails*: Geben Sie die Details zum Ziel-Volume ein, das durch den Replikationsvorgang erstellt wird:
++
+image:screenshot_template_replication_dest.png["Ein Screenshot der Seite, um den Speicherort des Replikationszielvolumens festzulegen."]
+
++
+.. Wählen Sie die Arbeitsumgebung aus, in der das Volume erstellt werden soll.
+.. Wählen Sie die Speicher-VM aus, auf der sich das Volume befindet.
+.. Bei der Replizierung eines Volumes in ein Cloud Volumes ONTAP-Cluster (nicht in ein ONTAP-Cluster vor Ort) ist der Ziel-Provider (AWS, Azure oder GCP) anzugeben.
+.. Bei der Replizierung eines Volume zu einem Cloud Volumes ONTAP Cluster können Sie angeben, ob das Volume Tiering auf dem Ziel-Volume aktiviert ist.
+.. Klicken Sie für den Namen des Zieldatenträgers in das Feld, und wählen Sie eine der 5 Optionen aus. Sie können den Administrator durch Auswahl von *Freitext* einen beliebigen Namen eingeben lassen, oder Sie können angeben, dass der Volumenname ein bestimmtes Präfix oder Suffix haben muss, dass er_ bestimmte Zeichen enthält oder dass er den Regeln eines regulären Ausdrucks (Regex) folgt, den Sie eingeben.
+.. Zur Replizierung muss die Quell- und Zielarbeitsumgebung über die Intercluster LIFs verbunden sein. Geben Sie die Intercluster-LIF-IP-Adresse für die Zielarbeitsumgebung ein.
+.. Wählen Sie das Aggregat aus, auf dem sich das Volume befindet.
+.. Bei der Replizierung eines Volumes zu einem Cloud Volumes ONTAP-Cluster (nicht zu einem ONTAP-Cluster vor Ort) muss der Festplattentyp für das neue Volume angegeben werden.
+
+
+. *Replikationsdetails*: Geben Sie die Details zum Typ und zur Häufigkeit des Replikationsvorgangs ein:
++
+image:screenshot_template_replication_policy.png["Ein Screenshot der Seite, um die Replikationseinstellungen für die Beziehung festzulegen."]
+
++
+.. Wählen Sie die aus https://docs.netapp.com/us-en/cloud-manager-replication/concept-replication-policies.html#types-of-replication-policies["Replizierungsrichtlinie"^] Die Sie verwenden möchten.
+.. Wählen Sie eine einmalige Kopie oder einen regelmäßigen Replikationszeitplan aus.
+.. Aktivieren Sie das Monitoring des Replizierungszustands, wenn der Drift-Bericht den Replikationszustand der SnapMirror-Beziehung sowie die Verzögerungszeit, den Status und die letzte Übertragungszeit einschließen soll. link:task-check-template-compliance.html#replication-health-details-in-the-drift-report["Sehen Sie, wie dies im Drift-Bericht aussieht"].
+.. Wählen Sie aus, ob Sie eine Transferrate-Grenze festlegen möchten, und geben Sie dann die maximale Rate (in Kilobyte pro Sekunde) ein, mit der Daten übertragen werden können. Sie können einen festen Wert eingeben oder Sie können ein Minimum und Maximum angeben und dem Storage Admin den Wert in diesem Bereich auswählen.
+
+
+. Klicken Sie auf *Anwenden*, um Ihre Änderungen zu speichern.
+
+
+
+
+== Was nach der Erstellung der Vorlage zu tun ist
+
+Nachdem Sie eine Vorlage erstellt haben, sollten Sie Ihre Storage-Administratoren darüber informieren, die Vorlage beim Erstellen neuer Arbeitsumgebungen und Volumes zu verwenden.
+
+Zeigen Sie sie auf link:task-run-templates.html["Erstellen von Ressourcen mithilfe von Vorlagen"] Entsprechende Details.
+
+
+
+== Bearbeiten oder Löschen einer Vorlage
+
+Sie können eine Vorlage ändern, wenn Sie einen der Parameter ändern müssen. Nach dem Speichern der Änderungen werden alle in der Vorlage erstellten Ressourcen die neuen Parameterwerte verwenden.
+
+Sie können auch eine Vorlage löschen, wenn Sie sie nicht mehr benötigen. Das Löschen einer Vorlage wirkt sich nicht auf die Ressourcen aus, die mit der Vorlage erstellt wurden. Nach dem Löschen der Vorlage kann jedoch keine Prüfung der Drift-Compliance durchgeführt werden.
+
+image:screenshot_template_edit_remove.png["Ein Screenshot, in dem das Ändern einer Vorlage oder das Löschen einer Vorlage angezeigt wird."]
+
+
+
+== Erstellen Sie eine Kopie einer Vorlage
+
+Sie können eine Kopie einer vorhandenen Vorlage erstellen. Dies kann viel Zeit sparen, wenn Sie eine neue Vorlage erstellen möchten, die einer vorhandenen Vorlage sehr ähnlich ist. Machen Sie das Duplikat einfach mit einem neuen Namen, und dann können Sie die Vorlage bearbeiten, um die paar Elemente zu ändern, die die Vorlage eindeutig machen.
+
+image:screenshot_template_duplicate.png["Ein Screenshot, der zeigt, wie eine Vorlage dupliziert wird."]

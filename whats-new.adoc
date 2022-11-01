@@ -1,0 +1,171 @@
+---
+sidebar: sidebar 
+permalink: whats-new.html 
+keywords: 'what"s new, features, new, release notes, bugs, limitations, known issues, enhancements, fixes' 
+summary: Erfahren Sie, was in AppTemplate und Tagging neu ist. 
+---
+= Neuerungen bei AppTemplate und Tagging
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Erfahren Sie, was in AppTemplate und Tagging neu ist.
+
+
+
+== 3 März 2022
+
+
+
+=== Jetzt können Sie eine Vorlage erstellen, um bestimmte Arbeitsumgebungen zu finden
+
+Mit der Aktion „vorhandene Ressourcen suchen“ können Sie die Arbeitsumgebung identifizieren und anschließend andere Vorlagenaktionen wie die Erstellung eines Volumes verwenden, um auf einfache Weise Aktionen in vorhandenen Arbeitsumgebungen durchzuführen. https://docs.netapp.com/us-en/cloud-manager-app-template/task-define-templates.html#examples-of-finding-existing-resources-and-enabling-services-using-templates["Weitere Informationen finden Sie hier"].
+
+
+
+=== Möglichkeit zur Erstellung einer Cloud Volumes ONTAP HA-Arbeitsumgebung in AWS
+
+Die vorhandene Unterstützung zur Erstellung einer Cloud Volumes ONTAP-Arbeitsumgebung in AWS wurde erweitert und umfasst nun zusätzlich ein Single-Node-System ein Hochverfügbarkeitssystem. https://docs.netapp.com/us-en/cloud-manager-app-template/task-define-templates.html#create-a-template-for-a-cloud-volumes-ontap-working-environment["Erfahren Sie, wie Sie eine Vorlage für eine Cloud Volumes ONTAP Arbeitsumgebung erstellen"].
+
+
+
+== 9 Februar 2022
+
+
+
+=== Sie können jetzt eine Vorlage erstellen, um bestimmte vorhandene Volumes zu finden und dann Cloud Backup zu aktivieren
+
+Mithilfe der neuen Aktion „Ressource suchen“ können Sie alle Volumes identifizieren, auf denen Sie Cloud Backup aktivieren möchten. Anschließend können Sie die Aktion „Cloud Backup“ verwenden, um das Backup auf diesen Volumes zu aktivieren.
+
+Aktuelle Unterstützung bieten Volumes auf Cloud Volumes ONTAP und lokalen ONTAP Systemen. https://docs.netapp.com/us-en/cloud-manager-app-template/task-define-templates.html#find-existing-volumes-and-activate-cloud-backup["Weitere Informationen finden Sie hier"].
+
+
+
+== Oktober 31 2021
+
+
+
+=== Jetzt können Sie Ihre Synchronisierungsbeziehungen markieren, damit Sie sie gruppieren oder kategorisieren können, um einen einfachen Zugriff zu ermöglichen
+
+https://docs.netapp.com/us-en/cloud-manager-app-template/concept-tagging.html["Erfahren Sie mehr über Ressourcen-Tagging"].
+
+
+
+== Oktober 11 2021
+
+
+
+=== Nun können Sie ein Duplikat einer vorhandenen Vorlage erstellen
+
+Das Erstellen eines Duplikaten kann viel Zeit sparen, wenn Sie eine neue Vorlage erstellen möchten, die einer vorhandenen Vorlage sehr ähnlich ist. Erstellen Sie einfach das Duplikat mit einem neuen Namen und ändern Sie die paar Elemente, die die Vorlage eindeutig machen. link:task-define-templates.html#make-a-copy-of-a-template["Erfahren Sie, wie Sie eine Kopie einer Vorlage erstellen"].
+
+
+
+=== Die Aktivierung von Services auf Volumes, die mit Vorlagen erstellt wurden, ist jetzt viel einfacher
+
+Bevor Sie Variablen zur Identifizierung der Arbeitsumgebung, der Storage-VM und des Volume-Namens auswählen mussten. Die Vorlage fügt diese Informationen nun für Sie hinzu. Das Hinzufügen von Services für Cloud-Backup, Cloud-Compliance und Replizierung zu neu erstellten Volumes wird vereinfacht.
+
+
+
+=== Unterstützung wurde hinzugefügt, sodass Sie bestimmte GCP-Ressourcen etikettieren können
+
+Nun können Labels auf GCP-Ressourcen über den Cloud Manager Tagging Service gemanagt werden. Sie können auf Ressourcen angewendete GCP-Labels und -Etikettenwerte anzeigen und diese Labels auf andere GCP-Ressourcen anwenden, die Sie verwalten. link:concept-tagging.html#resources-that-you-can-tag["Sehen Sie sich die GCP-Ressourcen an, die etikettieren können"].
+
+
+
+== September 2021
+
+
+
+=== Mit dem Tagging-Service können Sie Tags nun auch auf Ihren Azure-Ressourcen managen
+
+Sie können Azure-Tags und Tag-Werte, die auf Ressourcen angewendet wurden, anzeigen. Sie können diese Tags auch auf andere von Ihnen gemanagten Azure-Ressourcen anwenden. link:concept-tagging.html#resources-that-you-can-tag["Sehen Sie sich die Azure-Ressourcen an, die Sie kennzeichnen können"].
+
+
+
+=== Einige weitere AWS EC2 Ressourcen können jetzt getaggt werden
+
+
+
+== 8. August 2021
+
+
+
+=== Sie können jetzt mithilfe von Vorlagen eine Cloud Volumes ONTAP Arbeitsumgebung erstellen
+
+Dieser Support wird derzeit nur für AWS Umgebungen und nur für Single-Node-Cluster unterstützt. Informieren Sie sich darüber link:task-define-templates.html#create-a-template-for-a-cloud-volumes-ontap-working-environment["Erstellen Sie eine Vorlage für eine Cloud Volumes ONTAP Arbeitsumgebung"].
+
+
+
+=== Mit einer neuen Funktion können Sie einem Volume in einer Volume-Vorlage Tags hinzufügen
+
+Anhand des Tagging können Sie verschiedene Ressourcen gruppieren, um Applikationen, Regionen oder Abteilungen zu identifizieren, um eine Automatisierung durchzuführen oder Kosten bestimmten Abteilungen oder Regionen zuzuweisen.
+
+
+
+=== Sie können nun Tags aus Ihren AWS EC2 Instanzen in Cloud Manager managen
+
+Sie können AWS-Tags und Tag-Werte anzeigen, die auf EC2-Instanzen angewendet wurden. Sie können diese Tags auch auf andere von Ihnen gemanagten EC2 Instanzen anwenden. link:concept-tagging.html["Erfahren Sie mehr über das Tagging"].
+
+
+
+== 13 Juli 2021
+
+
+
+=== Beim Definieren einer Vorlage wurde Unterstützung hinzugefügt, um den Replikationsservice zu verwenden
+
+Jetzt können Sie die gewünschte Vorlage hinzufügen link:task-define-templates.html#add-replication-functionality-to-a-volume["Replizieren Sie die Daten im von Ihnen erstellten Volume"] Zu einem anderen Volume mithilfe von https://docs.netapp.com/us-en/cloud-manager-replication/concept-replication.html["Replizierungsservice"].
+
+Durch das Replizieren und ständige Aktualisieren der sekundären Daten auf anderen NetApp Storage-Systemen bleiben die Daten immer aktuell und verfügbar.
+
+
+
+=== Laden Sie einen Bericht herunter, der alle Volumes enthält, die aus Ihren Vorlageneinstellungen „getrieben“ wurden
+
+Auf diese Weise können Sie diese Volumes ermitteln und einen Mitarbeiter zuweisen, der die Volumes wieder konform geht. Siehe link:task-check-template-compliance.html#create-a-drift-report-for-non-compliant-resources["Wie Sie Ihren Drift-Bericht herunterladen"].
+
+
+
+=== Neuer Tagging-Service freigegeben
+
+Mit einer neuen Cloud Manager Funktion können Sie Tags auf Ihre vorhandenen ONTAP Ressourcen anwenden, um diese Ressourcen organisieren und zu managen. Tags sind Metadaten, mit denen Sie Ressourcen gruppieren können, um Anwendungen, Umgebungen, Regionen, Abrechnungscodes, Cloud-Provider, Und vieles mehr.
+
+link:concept-tagging.html["Erfahren Sie mehr über das Tagging"].
+
+
+
+== 7. Juni 2021
+
+
+
+=== Nun können Sie bestimmte Aktionen unter Bedingungen aktivieren, wenn der Benutzer die Vorlage ausführt
+
+Wenn beispielsweise ein Cloud Volumes ONTAP Volume mit aktivierten NetApp Storage-Effizienzfunktionen erstellt wird, ist Cloud Backup auch auf diesem Volume aktiviert. Wenn die Storage-Effizienz nicht aktiviert ist, ist Cloud Backup nicht aktiviert.
+
+
+
+=== Sie können nun mithilfe von Vorlagen ein Volume auf einem lokalen ONTAP System erstellen
+
+Mit AppTemplate können Sie mithilfe von Vorlagen ein Volume in einer vorhandenen Arbeitsumgebung erstellen.
+
+
+
+=== Neue Funktionen namens "Drift" wurden als Option beim Erstellen Ihrer Vorlagen hinzugefügt
+
+Mit dieser Funktion kann Cloud Manager die hartkodierten Werte überwachen, die Sie für einen Parameter in einer Vorlage eingegeben haben. Nachdem ein Storage-Administrator mithilfe dieser Vorlage ein Volume erstellt hat, kann Cloud Manager später feststellen, dass der Parameterwert geändert wurde, damit er nicht mehr an der Vorlagendefinition ausgerichtet ist, werden alle Volumes angezeigt, die aus der entworfenen Vorlage „driftet“ haben. Auf diese Weise können Sie diese Volumes identifizieren und Änderungen vornehmen, um sie wieder in die Compliance zu versetzen.
+
+
+
+== Mai 2021
+
+
+
+=== Jetzt können Sie Cloud Data Sense integrieren, wenn Sie eine Volume-Vorlage erstellen
+
+Sie können jetzt „Data Sense“ für jedes neu erstellte Volume aktivieren oder Cloud Backup für jedes neu erstellte Volume aktivieren... oder eine Vorlage erstellen, die sowohl Backup als auch Compliance für das erstellte Volume ermöglicht.

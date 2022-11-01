@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: concept-resource-templates.html 
+keywords: templates, overview, conceptual, resource templates, application templates, volume templates 
+summary: Mit dem AppTemplate-Dienst können Sie die Erstellung von Ressourcen in Ihren Arbeitsumgebungen in BlueXP standardisieren. Beispielsweise können Sie erforderliche Parameter in einer „Volume-Vorlage“ hartcodieren, die später angewendet werden, wenn ein Storage-Administrator mithilfe der Vorlage ein Volume erstellt. Dazu gehören der erforderliche Festplattentyp, die Größe, das Protokoll, die Snapshot-Richtlinie, der Cloud-Provider, Und vieles mehr. Zudem können Sie für jedes erstellte Volume bestimmte Services wie Cloud Backup aktivieren. 
+---
+= Erfahren Sie mehr über AppTemplate
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Mit dem AppTemplate-Service können Sie die Erstellung von Ressourcen in Ihren Arbeitsumgebungen in BlueXP (früher Cloud Manager) standardisieren. Beispielsweise können Sie erforderliche Parameter in einer „Volume-Vorlage“ hartcodieren, die später angewendet werden, wenn ein Storage-Administrator mithilfe der Vorlage ein Volume erstellt. Dazu gehören der erforderliche Festplattentyp, die Größe, das Protokoll, die Snapshot-Richtlinie, der Cloud-Provider, Und vieles mehr. Zudem können Sie für jedes erstellte Volume bestimmte Services wie Cloud Backup aktivieren.
+
+Vorlagen erleichtern Storage-Administratoren die Erstellung von Volumes, die für die Workload-Anforderungen der jeweiligen Applikation optimiert sind, wie Datenbanken, E-Mail oder Streaming-Services. Storage-Architekten wissen, dass jedes Volume für jede Applikation optimal erstellt wird, um das Leben einfacher zu gestalten.
+
+
+
+== Funktionen
+
+AppTemplate bietet die folgenden Funktionen und Vorteile:
+
+* Automatisiert und verbessert das Design und die Entwicklung Ihrer Infrastruktur
+* Sie bietet einen zentralen Speicherort, um verschiedene NetApp Cloud Services zu aktivieren, z. B. Cloud Backup und Cloud Data Sense
+* Identifiziert geänderte Ressourcen und entspricht nicht mehr der Vorlage (mit der Funktion „Drift“)
++
+Derzeit müssen Sie manuell Anpassungen vornehmen, um die Ressource wieder mit der Vorlage konform zu machen. link:task-check-template-compliance.html["Erfahren Sie mehr über Drift"].
+
+
+
+
+
+== Verfügbare Vorlagenaktionen
+
+Eine Vorlage ist eine Kette von "Aktionen", die einige vordefinierte Werte haben. Sie können Vorlagen mit folgenden Aktionen erstellen:
+
+*Ressourcen Aktionen:*
+
+* Erstellen eines Cloud Volumes ONTAP Volumes (auf AWS, Azure oder GCP)
+* Azure NetApp Files Volume erstellen
+* Erstellen eines lokalen ONTAP Volumes
+* Erstellung einer Cloud Volumes ONTAP Arbeitsumgebung (Single Node oder HA-System auf AWS)
+* Suchen Sie nach vorhandenen Ressourcen, die bestimmte Kriterien erfüllen (sodass Sie eine „Services“-Aktion zum Beenden von Ressourcen anwenden können).
+
+
+*Services Aktionen:*
+
+* Aktivieren https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^] Auf Volumes (nicht zutreffend für Azure NetApp Files)
+* Aktivieren https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^] Auf Volumes
+* Aktivieren https://docs.netapp.com/us-en/cloud-manager-replication/concept-replication.html["Replizierung"^] Auf Volumes (nicht zutreffend für Azure NetApp Files)
+
+
+Sie können beispielsweise eine Vorlage erstellen, die ein Cloud Volumes ONTAP Volume erstellt. Oder es erstellt ein Cloud Volumes ONTAP Volume und ermöglicht dann Cloud Backup auf diesem Volume. Oder dass es ein Cloud Volumes ONTAP Volume erstellt und dann Cloud Backup _und_ Cloud Daten sinnvoll auf diesem Volume ermöglicht.
+
+Weitere Aktionen werden von NetApp im Laufe der Zeit hinzugefügt.
+
+
+
+== Funktionsweise von AppTemplate
+
+Der AppTemplate-Dienst besteht aus 3 Teilen. Die verfügbare Vorlage „Actions“, die benutzerdefinierte Applikationsvorlage und die implementierte Ressource, aus der die Vorlage ausgeführt wird. Die folgende Abbildung zeigt die Beziehung zwischen den einzelnen Komponenten:
+
+image:diagram_template_flow1.png["Ein Diagramm der verschiedenen Benutzer, die an der Erstellung und Nutzung von Anwendungsvorlagen beteiligt sind."]
+
+Vorlagen funktionieren auf hoher Ebene wie folgt:
+
+. NetApp definiert die verfügbare Vorlage „Aktionen“.
++
+Beispielsweise eine „Aktion“ zum Erstellen eines Cloud Volumes ONTAP Volumes oder eines Azure NetApp Files Volumes.
+
+. Ihr Storage-Architekt wählt die „Aktionen“ aus, die er zum Erstellen einer Anwendungsvorlage verwenden möchte, und setzt dann die feste Codierung bestimmter Werte für die aufgelisteten Parameter fest.
++
+Sie wählen beispielsweise Festplatten mit hoher Geschwindigkeit und einen großen RAM für Cloud Volumes ONTAP Volumes aus, die zur Übertragung der Workloads für Oracle-Datenbanken verwendet werden. Darüber hinaus müssen Backups für jedes Volume erstellt werden.
+
+. Ihre Storage-Administratoren erstellen mithilfe der Vorlagen Ressourcen, die für die Applikationen optimiert sind, für die sie verwendet werden.
++
+Sie erstellen beispielsweise ein Volume, das mithilfe der für Datenbanken erstellten Volume-Vorlage für eine Oracle Datenbank verwendet werden wird.
+
+. Der Service verfolgt bestimmte Ressourceneinstellungen, die in der Vorlage definiert sind, mithilfe der „Drift“-Funktion, die vom Storage Architect festgelegt wurde.
+
+
+
+
+== Preise und Lizenzen
+
+Die AppTemplate-Funktion erfordert keine Lizenzierung und kann von allen BlueXP-Benutzern verwendet werden.
+
+
+NOTE: Vorlagen ermöglichen es Ihnen, einen Cloud-Service auf erstellte Ressourcen anzuwenden, beispielsweise Cloud Backup auf jedem Volume aktivieren. In diesem Fall entstehen Kosten für die Verwendung des Backup-Service und für den von den Backup-Dateien genutzten Objekt-Storage.
+
+
+
+== Einschränkungen
+
+* Der AppTemplate-Dienst wird in keiner der Gov Cloud-Regionen oder auf Websites ohne Internetzugang unterstützt.
+* Sie können keine Vorlage zum Erstellen eines Cloud Volumes ONTAP Volumes auf einem vorhandenen Aggregat verwenden. Neue Volumes werden in einem neuen Aggregat erstellt.
+

@@ -1,0 +1,114 @@
+---
+sidebar: sidebar 
+permalink: reference-template-building-blocks.html 
+keywords: templates, conditions, conditional actions, template controls, passing values 
+summary: 'Es gibt bestimmte Funktionen, die Sie beim Erstellen einer Vorlage verwenden können, mit denen Sie Werte zwischen Aktionen (z. B. einem Volume-Namen) übergeben, bestimmte Aktionen miteinander verbinden (Backups auf einem neuen Volume aktivieren) und die Ihren Benutzern helfen, Ressourcen bei der Verwendung der Vorlage anzupassen.' 
+---
+= Vorlagenbausteine
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Es gibt bestimmte Funktionen, die Sie beim Erstellen einer Vorlage verwenden können, mit denen Sie Werte zwischen Aktionen (z. B. einem Volume-Namen) übergeben, bestimmte Aktionen miteinander verbinden (Backups auf einem neuen Volume aktivieren) und die Ihren Benutzern helfen, Ressourcen bei der Verwendung der Vorlage anzupassen.
+
+
+
+== Steuerelemente für spezielle Vorlagen
+
+Bevor Sie mit dem Erstellen Ihrer Vorlage beginnen, sollten Sie einige spezielle Optionen verstehen, die Sie beim Vorfüllen eines Werts für einen Parameter in einer Vorlage festlegen können.
+
+image:screenshot_template_options.png["Ein Screenshot der editierbaren und Drift-Optionen, die Sie für Parameterwerte festlegen können."]
+
+
+
+=== Kontrollkästchen bearbeitbar
+
+Aktivieren Sie dieses Kontrollkästchen, damit der Storage-Administrator den von Ihnen in der Vorlage eingegebenen Wert außer Kraft setzen kann. Dies gibt dem Storage-Administrator einen Vorschlag für den Wert, aber es ermöglicht ihnen, den Wert bei der Erstellung der Ressource anzupassen.
+
+Wenn diese Option deaktiviert ist, kann der Benutzer den Wert nicht ändern, und der hartcodierte Wert in der Vorlage wird immer verwendet, wenn der Administrator eine Ressource bereitstellt.
+
+
+
+=== Drift-Kontrollkästchen
+
+Aktivieren Sie dieses Kontrollkästchen, damit BlueXP den für einen Parameter eingegebenen hartcodierten Wert überwacht, wenn eine Ressource mit der Vorlage erstellt wird. Später können Sie einen Drift-Bericht ausführen, um zu sehen, welche mit Drift konfigurierten Felder nicht mehr mit den Vorlageneinstellungen kompatibel sind.
+
+Wenn diese Option deaktiviert ist, kann der Benutzer den Wert nach der Erstellung der Ressource in einen beliebigen Wert ändern.
+
+
+NOTE: Damit die Drift-Funktion funktioniert, müssen Sie die Drift-Funktion für einige Parameter in der Vorlage aktivieren, nachdem Sie die Drift-Funktion für die Vorlage festgelegt haben. Dies ist der letzte Schritt beim Erstellen einer Vorlage. Drift funktioniert nicht, wenn es für einen Parameter aktiviert ist, aber auf der Vorlage nicht aktiviert wurde.
+
+
+
+=== Verwenden eines regulären Ausdrucks (Regex) in Feldern
+
+Es gibt einige Felder in Vorlagen, in denen Sie einen Regex eingeben können, um den Wert zu definieren, den Ihr Administrator in das Feld eingeben kann, z. B. „Volume Name“ und „Share Name“.
+
+image:screenshot_template_regex.png["Ein Screenshot, wie Sie ein Regex verwenden, um die zulässigen Werte für einen Volume-Namen zu definieren"]
+
+Wenn Sie beispielsweise „^[A-ZA-Z][0-9a-ZA-Z_]{0,149}€“ als Regex für den Volume-Namen eingeben, bedeutet dies, dass „_der Name mit einem alphabetischen Zeichen beginnen sollte, er nur Zahlen, Buchstaben oder den Unterstrich enthalten kann und 150 oder weniger Zeichen in der Länge_“ sein sollte.
+
+
+
+== Werte zwischen Vorlagenaktionen übergeben
+
+Vorlagen können Informationen aus einer früheren Aktion verwenden, um ein Feld in eine zukünftige Aktion einzufügen. Wenn Sie beispielsweise den Namen des Volumes festlegen, für das die Cloud Backup-Funktion aktiviert ist, können Sie die Aktion Backup anweisen, den Wert zu verwenden, den der Storage-Administrator aus der Aktion Cloud Volumes ONTAP erstellen als Name des Volumes eingegeben hat.
+
+Der AppTemplate-Dienst kann drei Arten von Informationen nutzen:
+
+* Eingabewert: Dies ist der tatsächliche Wert, den der Storage-Admin in ein Feld in einer früheren Vorlagenaktion eingegeben hat.
+* Ausgabewert: Dieser Wert wird von BlueXP erzeugt, nachdem eine Ressource aus einer früheren Vorlagenaktion erstellt wurde.
+* Geben Sie Ihren eigenen Wert ein – Dies ist ein Wert, den Sie eingeben. Der Zugriff auf diesen Wert erfolgt nicht über eine vorherige Aktion in der Vorlage.
+
+
+Um beispielsweise Compliance-Scans für ein Volume zu ermöglichen, benötigt der Cloud Data Sense Service sowohl den „Volume-Namen“, den der Storage-Administrator eingibt (den Eingabewert), als auch die „Volume UUID“, die BlueXP beim Erstellen des Volumes generiert (der Ausgabewert).
+
+Die folgende Abbildung zeigt, wie diese Informationen in den Abschnitt Cloud Data Sense Aktion der Vorlage eingegeben werden.
+
+image:screenshot_template_variable_input_output.png["Eine Abbildung, die zeigt, wie ein in einer vorherigen Aktion eingegebener Wert verwendet wird, um ein Feld in eine andere Aktion zu füllen."]
+
+
+
+== Verwenden Sie Bedingungen, um unterschiedliche Aktionen basierend auf logischen Anweisungen auszuführen
+
+Die Bedingungen sagen, dass die Vorlage verschiedene Aktionen ausführen kann. Dies hängt davon ab, ob die Bedingung beim Ausführen der Vorlage wahr oder falsch ist. Sie fügen eine Bedingung hinzu, indem Sie die Aktion * Logisches If* auswählen:
+
+image:screenshot_template_select_condition.png["Ein Screenshot, wie Sie bedingte Anweisungen in Ihren Vorlagen hinzufügen können."]
+
+Möglicherweise verfügen Sie beispielsweise über eine Richtlinie, die dafür sorgt, dass, wenn ein Volume mit einer Kapazität von mehr als 50 GB Kapazität verfügt, Cloud Backup aktiviert werden muss, auf diesem Volume aktiviert sein muss. Wenn das Volume eine kleinere Kapazität hat, ist Cloud Backup nicht aktiviert. Sie können dies wie unten gezeigt in Ihre Vorlage implementieren.
+
+image:screenshot_template_condition_example.png["Ein Screenshot zeigt, wie Bedingungen in Ihrer Vorlage verwendet werden können, um Cloud Backup bedingt zu aktivieren."]
+
+Die Bedingungen bestehen aus zwei Teilen:
+
+* Regeln: Das Element, das Sie überprüfen, ob es wahr oder falsch ist.
+* Und/oder Anweisung: Ermöglicht Ihnen die Verwendung mehrerer Regeln, um weiter zu verfeinern, ob zusätzliche Aktionen hinzugefügt werden.
+
+
+Eine Regel besteht aus drei Teilen:
+
+*Quellfeld* - der Ort, von dem Sie den Wert zum Vergleich erhalten.
+
+* Eingabewert aus der Aktion - der tatsächliche Wert, den der Storage-Admin in ein Feld in einer früheren Vorlagenaktion eingegeben hat.
+* Ausgabewert aus Aktion abrufen – der Wert, den BlueXP nach dem Erstellen einer Ressource aus einer früheren Vorlagenaktion generiert hat.
+* Wert eingeben: Dies ist ein Wert, den Sie eingeben. Der Zugriff erfolgt nicht über eine vorherige Aktion in der Vorlage. Dieser Wert kann für eine Ressource sein, die bereits vorhanden ist, z. B. ein vorhandenes Volume.
+
+
+*Operator* - der für den Vergleich verwendete Operator. Die Optionen sind *gleich*, *nicht gleich*, *größer als*, *kleiner als*, *größer oder gleich*, *kleiner als oder gleich*.
+
+*Feldwert* - der tatsächliche Wert, den Sie vergleichen. Die Optionen entsprechen denen für das Feld _Source_.
+
+Eine und/oder-Anweisung ermöglicht es Ihnen, bedingt weitere Aktionen für Benutzer hinzuzufügen, wenn sie die Vorlage ausführen, basierend darauf, ob mehrere Regeln als wahr oder falsch bewertet werden. *Und* verlangt, dass alle Regeln wahr oder falsch sind, und *oder* erfordert nur eine der Regeln muss wahr oder falsch sein.
+
+Bei der Verwendung einer und oder Anweisung mit Ihren Regeln folgt der Evaluationsprozess der mathematischen Standardreihenfolge, in der „UND“ vor „ODER“ geht. Beispiel:
+
+* <rule1> ODER <Rule2> UND <Rule3>
++
+Diese Anweisung wird in folgender Reihenfolge ausgewertet: <rule1> ODER (<Rule2> UND <Rule3>)
+
+
