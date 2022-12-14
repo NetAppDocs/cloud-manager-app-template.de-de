@@ -22,16 +22,20 @@ Wählen Sie eine oder mehrere der von NetApp bereitgestellten „Aktionen“ aus
 
 Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.
 
-.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"[] alt=„One“></span> erforderliche Voraussetzungen prüfen
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Überprüfen Sie die erforderlichen Voraussetzungen
+[role="quick-margin-list"]
 * Bevor Benutzer ein Volume für ein Cloud Volumes ONTAP-, On-Premises-ONTAP- oder Azure NetApp Files-System mit einer Vorlage erstellen können, stellen Sie sicher, dass sie Zugriff auf eine geeignete Arbeitsumgebung haben, in der das Volume implementiert wird.
 
 
+[role="quick-margin-list"]
 * Wenn Sie eine „Aktion“ des Cloud-Services zu Ihrer Vorlage hinzufügen möchten, z. B. https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^] Oder https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^], Stellen Sie sicher, dass der Service in Ihrer Umgebung aktiv ist und lizenziert ist.
 
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Zwei"] Starten Sie den Dienst Anwendungsvorlagen
 [role="quick-margin-para"]
 Wählen Sie *Health > Remediation*, klicken Sie auf die Registerkarte *Editor* und wählen Sie die Aktionen aus, die Sie in Ihrer Vorlage verwenden möchten.
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"] Erstellen Sie die Vorlage, indem Sie „Aktionen“ auswählen und Parameter definieren
 [role="quick-margin-para"]
 Befolgen Sie die Erstellungsschritte, und definieren Sie die Aktionen, die von der Vorlage ausgeführt werden.
 
@@ -167,9 +171,10 @@ Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei d
 . Klicken Sie Auf *Vorlage Speichern*.
 
 
+.Ergebnis
 Die Vorlage wird erstellt, und Sie werden wieder in das Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
 
-Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+Siehe <<Was nach der Erstellung der Vorlage zu tun ist,Was Sie Ihren Benutzern über Vorlagen sagen sollten>>.
 
 
 
@@ -268,9 +273,10 @@ Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei d
 . Klicken Sie Auf *Vorlage Speichern*.
 
 
+.Ergebnis
 Die Vorlage wird erstellt, und Sie werden wieder in das Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
 
-Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+Siehe <<Was nach der Erstellung der Vorlage zu tun ist,Was Sie Ihren Benutzern über Vorlagen sagen sollten>>.
 
 
 
@@ -366,9 +372,10 @@ Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei d
 . Klicken Sie Auf *Vorlage Speichern*.
 
 
+.Ergebnis
 Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
 
-Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+Siehe <<Was nach der Erstellung der Vorlage zu tun ist,Was Sie Ihren Benutzern über Vorlagen sagen sollten>>.
 
 
 
@@ -449,7 +456,7 @@ https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/concept-licensin
 +
 Wenn die Vorlagenwerte korrekt ausgefüllt sind, wird das Kontrollkästchen „Arbeitsumgebung in AWS erstellen (einzelner Knoten)“ mit einem grünen Häkchen markiert.
 
-. Sie können eine weitere Aktion in dieser Vorlage hinzufügen, um ein Volume für diese Arbeitsumgebung zu erstellen. Wenn ja, klicken Sie auf image:button_plus_sign_round.png["Plus-Taste"] Und fügen Sie diese Aktion hinzu. Informieren Sie sich darüber  a template for a Cloud Volumes ONTAP volume,Erstellen einer Vorlage für ein Cloud Volumes ONTAP Volume Entsprechende Details.
+. Sie können eine weitere Aktion in dieser Vorlage hinzufügen, um ein Volume für diese Arbeitsumgebung zu erstellen. Wenn ja, klicken Sie auf image:button_plus_sign_round.png["Plus-Taste"] Und fügen Sie diese Aktion hinzu. Informieren Sie sich darüber <<Erstellen einer Vorlage für ein Cloud Volumes ONTAP Volume,Erstellen einer Vorlage für ein Cloud Volumes ONTAP Volume>> Entsprechende Details.
 . Geben Sie oben links den Vorlagennamen ein.
 . Klicken Sie auf *Settings & Drift*, um eine detailliertere Beschreibung bereitzustellen, damit diese Vorlage von anderen ähnlichen Vorlagen unterschieden werden kann, und so können Sie Drift für die Gesamtvorlage aktivieren und dann auf *Apply* klicken.
 +
@@ -458,9 +465,10 @@ Drift ermöglicht BlueXP die Überwachung der hartcodierten Werte, die Sie bei d
 . Klicken Sie Auf *Vorlage Speichern*.
 
 
+.Ergebnis
 Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
 
-Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+Siehe <<Was nach der Erstellung der Vorlage zu tun ist,Was Sie Ihren Benutzern über Vorlagen sagen sollten>>.
 
 
 
@@ -544,13 +552,14 @@ Die Aktion _Cloud Backup auf Volume_ aktivieren wird dem Fenster hinzugefügt.
 +
 image:screenshot_template_add_backup_action.png["Ein Screenshot mit den Schritten, die zum Hinzufügen einer Cloud Backup-Aktion zu Ihrer Vorlage erforderlich sind."]
 
-. Jetzt können Sie die Backup-Kriterien wie unter beschrieben definieren  Backup functionality to a volume,Hinzufügen von Backup-Funktionen zu einem Volume Damit die Vorlage die richtige Backup-Richtlinie auf die von Ihnen ausgewählten Volumes in der Aktion „_Find Existing Resources_“ anwendet.
+. Jetzt können Sie die Backup-Kriterien wie unter beschrieben definieren <<Hinzufügen von Backup-Funktionen zu einem Volume,Hinzufügen von Backup-Funktionen zu einem Volume>> Damit die Vorlage die richtige Backup-Richtlinie auf die von Ihnen ausgewählten Volumes in der Aktion „_Find Existing Resources_“ anwendet.
 . Klicken Sie auf *Anwenden*, um die Anpassung zu speichern, die Sie bei der Aktion „Backup“ vorgenommen haben, und klicken Sie anschließend auf *Vorlage speichern*, wenn Sie fertig sind.
 
 
+.Ergebnis
 Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
 
-Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+Siehe <<Was nach der Erstellung der Vorlage zu tun ist,Was Sie Ihren Benutzern über Vorlagen sagen sollten>>.
 
 
 
@@ -593,9 +602,10 @@ Stattdessen wird empfohlen, einige Filter auszufüllen, um die Anzahl der Ergebn
 . Geben Sie oben links den Vorlagennamen ein und klicken Sie dann auf *Vorlage speichern*
 
 
+.Ergebnis
 Die Vorlage wird erstellt, und Sie werden zurück zum Vorlagen-Dashboard, in dem Ihre neue Vorlage angezeigt wird.
 
-Siehe  to do after you have created the template,Was Sie Ihren Benutzern über Vorlagen sagen sollten.
+Siehe <<Was nach der Erstellung der Vorlage zu tun ist,Was Sie Ihren Benutzern über Vorlagen sagen sollten>>.
 
 
 

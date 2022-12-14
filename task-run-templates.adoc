@@ -24,16 +24,20 @@ Vorlagen ermöglichen die Erstellung von Volumes für Cloud Volumes ONTAP, Azure
 
 Führen Sie diese Schritte schnell durch, oder scrollen Sie nach unten zu den verbleibenden Abschnitten, um ausführliche Informationen zu erhalten.
 
-.<span class=„image“><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png"[] alt=„One“></span> erforderliche Voraussetzungen prüfen
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Überprüfen Sie die erforderlichen Voraussetzungen
+[role="quick-margin-list"]
 * Bevor Sie ein Volume für ein Cloud Volumes ONTAP-, On-Premises-ONTAP- oder Azure NetApp Files-System mit einer Vorlage erstellen können, stellen Sie sicher, dass Sie Zugriff auf eine geeignete Arbeitsumgebung haben, in der das Volume implementiert wird.
 
 
+[role="quick-margin-list"]
 * Wenn die Vorlage einen Cloud-Service auf dem Volume aktiviert, z. B. https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-backup-to-cloud.html["Cloud-Backup"^] Oder https://docs.netapp.com/us-en/cloud-manager-data-sense/concept-cloud-compliance.html["Cloud-Daten Sinnvoll"^], Stellen Sie sicher, dass der Service in Ihrer Umgebung aktiv ist und lizenziert ist.
 
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Zwei"] Starten Sie den Dienst Anwendungsvorlagen
 [role="quick-margin-para"]
 Wählen Sie *Health > Remediation* und klicken Sie auf die Registerkarte *Templates*.
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"] Erstellen Sie die Ressource, indem Sie die Vorlage ausführen und Parameter definieren
 [role="quick-margin-para"]
 Wählen Sie die Vorlage aus, klicken Sie auf *Vorlage ausführen* und geben Sie Werte in die bearbeitbaren Felder ein, um die Ressource zu erstellen.
 
@@ -175,6 +179,7 @@ Wenn die Ergebnisse nicht den Erwartungen entsprechen, klicken Sie auf image:scr
 
 
 
+.Ergebnisse
 Die Vorlage wird ausgeführt und sie aktiviert Cloud Backup für jedes Volume, das Sie anhand der Suchkriterien geprüft haben.
 
 Jeder Fehler wird auf der Seite „_Running Your Template_“ aufgerufen, und Sie können die Probleme bei Bedarf lösen.
